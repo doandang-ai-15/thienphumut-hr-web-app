@@ -1,0 +1,875 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PeopleHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        .pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+        .fade-up { animation: fade-up 0.5s ease-out forwards; }
+        
+        .sidebar-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar-item:hover {
+            transform: translateX(4px);
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #F875AA20, #AEDEFC20);
+            border-left: 3px solid #F875AA;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(248, 117, 170, 0.1);
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        
+        .settings-nav-item {
+            transition: all 0.2s ease;
+        }
+        
+        .settings-nav-item.active {
+            background: linear-gradient(135deg, #F875AA10, #AEDEFC10);
+            border-right: 3px solid #F875AA;
+            color: #F875AA;
+        }
+        
+        .toggle-switch {
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #F875AA, #AEDEFC);
+        }
+        
+        .toggle-switch .toggle-dot {
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active .toggle-dot {
+            transform: translateX(20px);
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FDEDED; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #F875AA, #AEDEFC); border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#FDEDED] via-white to-[#EDFFF0] min-h-screen">
+    <!-- Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-60 w-96 h-96 bg-[#F875AA]/10 rounded-full blur-3xl float-animation"></div>
+        <div class="absolute bottom-20 right-20 w-80 h-80 bg-[#AEDEFC]/20 rounded-full blur-3xl float-animation" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 right-1/3 w-64 h-64 bg-[#EDFFF0]/40 rounded-full blur-3xl pulse-soft"></div>
+    </div>
+
+    <div class="flex min-h-screen relative z-10">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white/70 backdrop-blur-xl border-r border-white/50 flex flex-col fixed h-full z-20">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-100/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-sm tracking-tighter">HR</span>
+                    </div>
+                    <span class="text-lg font-semibold text-gray-800 tracking-tight">PeopleHub</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-1">
+                <a href="index.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a href="employees.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Employees</span>
+                </a>
+                <a href="departments.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="building-2" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Departments</span>
+                </a>
+                <a href="leaveApplications.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Leave Applications</span>
+                </a>
+                <a href="contracts.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Contracts</span>
+                </a>
+                <a href="settings.html" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-[#F875AA]">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-4 border-t border-gray-100/50">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold text-sm">
+                        JD
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-800 truncate">John Doe</p>
+                        <p class="text-xs text-gray-500 truncate">HR Manager</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Settings ⚙️</h1>
+                <p class="text-gray-500 text-sm mt-1">Manage your account and application preferences</p>
+            </div>
+
+            <!-- Settings Layout -->
+            <div class="flex gap-6">
+                <!-- Settings Navigation -->
+                <div class="w-56 flex-shrink-0">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden fade-up stagger-1">
+                        <nav class="p-2">
+                            <button onclick="showSection('profile')" id="nav-profile" class="settings-nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Profile</span>
+                            </button>
+                            <button onclick="showSection('company')" id="nav-company" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
+                                <i data-lucide="building" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Company</span>
+                            </button>
+                            <button onclick="showSection('notifications')" id="nav-notifications" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
+                                <i data-lucide="bell" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Notifications</span>
+                            </button>
+                            <button onclick="showSection('security')" id="nav-security" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
+                                <i data-lucide="shield" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Security</span>
+                            </button>
+                            <button onclick="showSection('integrations')" id="nav-integrations" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
+                                <i data-lucide="plug" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Integrations</span>
+                            </button>
+                            <button onclick="showSection('billing')" id="nav-billing" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
+                                <i data-lucide="credit-card" class="w-4 h-4"></i>
+                                <span class="text-sm font-medium">Billing</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="flex-1">
+                    <!-- Profile Section -->
+                    <div id="section-profile" class="space-y-6 fade-up stagger-2">
+                        <!-- Profile Card -->
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Profile Information</h2>
+                            
+                            <div class="flex items-start gap-6 mb-6">
+                                <div class="relative">
+                                    <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold text-2xl">
+                                        JD
+                                    </div>
+                                    <button class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-600 hover:text-[#F875AA] transition-colors">
+                                        <i data-lucide="camera" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-800">John Doe</h3>
+                                    <p class="text-sm text-gray-500 mb-3">HR Manager</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium hover:shadow-lg transition-all">
+                                            Upload Photo
+                                        </button>
+                                        <button class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50 transition-colors">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">First Name</label>
+                                    <input type="text" value="John" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Last Name</label>
+                                    <input type="text" value="Doe" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Email Address</label>
+                                    <input type="email" value="john.doe@company.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Phone Number</label>
+                                    <input type="tel" value="+1 (555) 123-4567" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Job Title</label>
+                                    <input type="text" value="HR Manager" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Department</label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
+                                            <option>Human Resources</option>
+                                            <option>Engineering</option>
+                                            <option>Marketing</option>
+                                            <option>Sales</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Bio</label>
+                                    <textarea rows="3" placeholder="Tell us about yourself..." class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm resize-none">Experienced HR Manager with a passion for building great teams and fostering positive workplace culture.</textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
+                                <button class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
+                                    Cancel
+                                </button>
+                                <button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Preferences -->
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Preferences</h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Language</p>
+                                        <p class="text-xs text-gray-500">Select your preferred language</p>
+                                    </div>
+                                    <div class="relative">
+                                        <select class="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm appearance-none cursor-pointer pr-10">
+                                            <option>English (US)</option>
+                                            <option>English (UK)</option>
+                                            <option>Spanish</option>
+                                            <option>French</option>
+                                            <option>German</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Timezone</p>
+                                        <p class="text-xs text-gray-500">Set your local timezone</p>
+                                    </div>
+                                    <div class="relative">
+                                        <select class="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm appearance-none cursor-pointer pr-10">
+                                            <option>Pacific Time (PT)</option>
+                                            <option>Mountain Time (MT)</option>
+                                            <option>Central Time (CT)</option>
+                                            <option>Eastern Time (ET)</option>
+                                            <option>UTC</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Date Format</p>
+                                        <p class="text-xs text-gray-500">How dates are displayed</p>
+                                    </div>
+                                    <div class="relative">
+                                        <select class="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm appearance-none cursor-pointer pr-10">
+                                            <option>MM/DD/YYYY</option>
+                                            <option>DD/MM/YYYY</option>
+                                            <option>YYYY-MM-DD</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Section -->
+                    <div id="section-company" class="space-y-6 hidden">
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Company Information</h2>
+                            
+                            <div class="flex items-start gap-6 mb-6">
+                                <div class="relative">
+                                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center shadow-lg">
+                                        <span class="text-white font-bold text-xl tracking-tighter">HR</span>
+                                    </div>
+                                    <button class="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-600 hover:text-[#F875AA] transition-colors">
+                                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-800">PeopleHub Inc.</h3>
+                                    <p class="text-sm text-gray-500">HR Management Solutions</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Company Name</label>
+                                    <input type="text" value="PeopleHub Inc." class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Industry</label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
+                                            <option>Technology</option>
+                                            <option>Healthcare</option>
+                                            <option>Finance</option>
+                                            <option>Retail</option>
+                                            <option>Manufacturing</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Company Size</label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
+                                            <option>1-50 employees</option>
+                                            <option>51-200 employees</option>
+                                            <option>201-500 employees</option>
+                                            <option>501+ employees</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Website</label>
+                                    <input type="url" value="https://peoplehub.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Address</label>
+                                    <input type="text" value="123 Business Ave, Suite 100, San Francisco, CA 94105" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
+                                <button class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
+                                    Cancel
+                                </button>
+                                <button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Work Schedule -->
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Work Schedule</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Work Week Starts</label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
+                                            <option>Monday</option>
+                                            <option>Sunday</option>
+                                            <option>Saturday</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Default Work Hours</label>
+                                    <input type="text" value="9:00 AM - 5:00 PM" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700 mb-3 block">Working Days</label>
+                                <div class="flex gap-2">
+                                    <button class="w-10 h-10 rounded-xl bg-gray-100 text-gray-400 text-xs font-medium">S</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium">M</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium">T</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium">W</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium">T</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium">F</button>
+                                    <button class="w-10 h-10 rounded-xl bg-gray-100 text-gray-400 text-xs font-medium">S</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Section -->
+                    <div id="section-notifications" class="space-y-6 hidden">
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Email Notifications</h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">New Leave Requests</p>
+                                        <p class="text-xs text-gray-500">Get notified when employees submit leave requests</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Contract Expiring</p>
+                                        <p class="text-xs text-gray-500">Reminders for upcoming contract expirations</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">New Employee Added</p>
+                                        <p class="text-xs text-gray-500">Notification when new employees are onboarded</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Weekly Summary</p>
+                                        <p class="text-xs text-gray-500">Receive weekly HR activity summary</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Birthday Reminders</p>
+                                        <p class="text-xs text-gray-500">Get reminded of upcoming employee birthdays</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Push Notifications</h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Desktop Notifications</p>
+                                        <p class="text-xs text-gray-500">Show notifications in your browser</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Mobile Notifications</p>
+                                        <p class="text-xs text-gray-500">Receive push notifications on mobile</p>
+                                    </div>
+                                    <button onclick="toggleSwitch(this)" class="toggle-switch w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
+                                        <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div id="section-security" class="space-y-6 hidden">
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Change Password</h2>
+                            
+                            <div class="space-y-4 max-w-md">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Current Password</label>
+                                    <div class="relative">
+                                        <input type="password" placeholder="Enter current password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <i data-lucide="eye" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">New Password</label>
+                                    <div class="relative">
+                                        <input type="password" placeholder="Enter new password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <i data-lucide="eye" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Confirm New Password</label>
+                                    <div class="relative">
+                                        <input type="password" placeholder="Confirm new password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <i data-lucide="eye" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
+                                    Update Password
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <div class="flex items-start justify-between mb-6">
+                                <div>
+                                    <h2 class="text-base font-semibold text-gray-800">Two-Factor Authentication</h2>
+                                    <p class="text-xs text-gray-500 mt-1">Add an extra layer of security to your account</p>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">Enabled</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 p-4 rounded-xl bg-green-50/50 border border-green-100">
+                                <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
+                                    <i data-lucide="smartphone" class="w-5 h-5 text-green-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">Authenticator App</p>
+                                    <p class="text-xs text-gray-500">Using Google Authenticator</p>
+                                </div>
+                                <button class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50 transition-colors">
+                                    Configure
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Active Sessions</h2>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-50/50">
+                                    <div class="w-10 h-10 rounded-xl bg-[#AEDEFC]/30 flex items-center justify-center">
+                                        <i data-lucide="monitor" class="w-5 h-5 text-[#5BA3C8]"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">MacBook Pro - Chrome</p>
+                                        <p class="text-xs text-gray-500">San Francisco, CA • Active now</p>
+                                    </div>
+                                    <span class="px-2 py-1 rounded bg-green-50 text-green-600 text-xs font-medium">Current</span>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-50/50">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                                        <i data-lucide="smartphone" class="w-5 h-5 text-gray-500"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">iPhone 14 Pro - Safari</p>
+                                        <p class="text-xs text-gray-500">San Francisco, CA • 2 hours ago</p>
+                                    </div>
+                                    <button class="text-red-500 text-xs font-medium hover:text-red-600">Revoke</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations Section -->
+                    <div id="section-integrations" class="space-y-6 hidden">
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Connected Apps</h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#F875AA]/50 transition-colors">
+                                    <div class="w-12 h-12 rounded-xl bg-[#4285F4] flex items-center justify-center text-white font-bold text-lg">G</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">Google Workspace</p>
+                                        <p class="text-xs text-gray-500">Sync calendar and contacts</p>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">Connected</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i data-lucide="settings" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#F875AA]/50 transition-colors">
+                                    <div class="w-12 h-12 rounded-xl bg-[#611f69] flex items-center justify-center text-white font-bold text-lg">S</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">Slack</p>
+                                        <p class="text-xs text-gray-500">Send notifications to channels</p>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">Connected</span>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i data-lucide="settings" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#F875AA]/50 transition-colors">
+                                    <div class="w-12 h-12 rounded-xl bg-[#00A4EF] flex items-center justify-center text-white font-bold text-lg">M</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">Microsoft 365</p>
+                                        <p class="text-xs text-gray-500">Import employee data from Outlook</p>
+                                    </div>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium hover:shadow-lg transition-all">
+                                        Connect
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#F875AA]/50 transition-colors">
+                                    <div class="w-12 h-12 rounded-xl bg-[#2684FF] flex items-center justify-center text-white font-bold text-lg">J</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">Jira</p>
+                                        <p class="text-xs text-gray-500">Track team workload and projects</p>
+                                    </div>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-xs font-medium hover:shadow-lg transition-all">
+                                        Connect
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-4">API Access</h2>
+                            <p class="text-sm text-gray-500 mb-4">Use our API to integrate PeopleHub with your custom applications.</p>
+                            
+                            <div class="p-4 rounded-xl bg-gray-900 text-gray-300 font-mono text-xs mb-4">
+                                <div class="flex items-center justify-between">
+                                    <span>pk_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+                                    <button class="text-[#F875AA] hover:text-[#AEDEFC]">
+                                        <i data-lucide="copy" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50 transition-colors">
+                                    View Documentation
+                                </button>
+                                <button class="px-4 py-2 rounded-lg border border-red-200 text-red-500 text-xs font-medium hover:bg-red-50 transition-colors">
+                                    Regenerate Key
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Section -->
+                    <div id="section-billing" class="space-y-6 hidden">
+                        <div class="bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-2xl p-6 text-white">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <p class="text-sm opacity-90 mb-1">Current Plan</p>
+                                    <h2 class="text-2xl font-semibold tracking-tight">Professional</h2>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-medium">Active</span>
+                            </div>
+                            <div class="flex items-end gap-1 mb-4">
+                                <span class="text-4xl font-bold">$49</span>
+                                <span class="text-sm opacity-80 mb-1">/month</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="px-4 py-2 rounded-lg bg-white text-[#F875AA] text-sm font-medium hover:shadow-lg transition-all">
+                                    Upgrade Plan
+                                </button>
+                                <button class="px-4 py-2 rounded-lg bg-white/20 text-white text-sm font-medium hover:bg-white/30 transition-colors">
+                                    View Plans
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Usage This Month</h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600">Employees</span>
+                                        <span class="text-sm font-medium text-gray-800">156 / 200</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-full" style="width: 78%;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600">Storage</span>
+                                        <span class="text-sm font-medium text-gray-800">4.2 GB / 10 GB</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-[#AEDEFC] to-[#9ED5A3] rounded-full" style="width: 42%;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600">API Requests</span>
+                                        <span class="text-sm font-medium text-gray-800">8,420 / 50,000</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-[#9ED5A3] to-[#AEDEFC] rounded-full" style="width: 17%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">Payment Method</h2>
+                            
+                            <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 mb-4">
+                                <div class="w-14 h-9 rounded bg-gradient-to-r from-[#1A1F71] to-[#2C4F9E] flex items-center justify-center">
+                                    <span class="text-white text-xs font-bold italic">VISA</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">•••• •••• •••• 4242</p>
+                                    <p class="text-xs text-gray-500">Expires 12/2026</p>
+                                </div>
+                                <span class="px-2 py-1 rounded bg-green-50 text-green-600 text-xs font-medium">Default</span>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            
+                            <button class="flex items-center gap-2 text-[#F875AA] text-sm font-medium hover:text-[#AEDEFC] transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                Add Payment Method
+                            </button>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-base font-semibold text-gray-800">Billing History</h2>
+                                <button class="text-[#F875AA] text-sm font-medium hover:text-[#AEDEFC] transition-colors">
+                                    Download All
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50/50 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+                                            <i data-lucide="receipt" class="w-4 h-4 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">January 2025</p>
+                                            <p class="text-xs text-gray-500">Professional Plan</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-sm font-medium text-gray-800">$49.00</span>
+                                        <button class="text-gray-400 hover:text-[#F875AA]">
+                                            <i data-lucide="download" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50/50 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+                                            <i data-lucide="receipt" class="w-4 h-4 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">December 2024</p>
+                                            <p class="text-xs text-gray-500">Professional Plan</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-sm font-medium text-gray-800">$49.00</span>
+                                        <button class="text-gray-400 hover:text-[#F875AA]">
+                                            <i data-lucide="download" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50/50 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+                                            <i data-lucide="receipt" class="w-4 h-4 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">November 2024</p>
+                                            <p class="text-xs text-gray-500">Professional Plan</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-sm font-medium text-gray-800">$49.00</span>
+                                        <button class="text-gray-400 hover:text-[#F875AA]">
+                                            <i data-lucide="download" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        function showSection(section) {
+            const sections = ['profile', 'company', 'notifications', 'security', 'integrations', 'billing'];
+            
+            sections.forEach(s => {
+                const sectionEl = document.getElementById('section-' + s);
+                const navEl = document.getElementById('nav-' + s);
+                
+                if (s === section) {
+                    sectionEl.classList.remove('hidden');
+                    navEl.classList.add('active');
+                    navEl.classList.remove('text-gray-600');
+                } else {
+                    sectionEl.classList.add('hidden');
+                    navEl.classList.remove('active');
+                    navEl.classList.add('text-gray-600');
+                }
+            });
+            
+            lucide.createIcons();
+        }
+        
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+    </script>
+
+</body></html>

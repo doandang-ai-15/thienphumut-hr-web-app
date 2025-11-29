@@ -1,0 +1,470 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments - PeopleHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        .pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+        .fade-up { animation: fade-up 0.5s ease-out forwards; }
+        
+        .sidebar-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar-item:hover {
+            transform: translateX(4px);
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #F875AA20, #AEDEFC20);
+            border-left: 3px solid #F875AA;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(248, 117, 170, 0.15);
+        }
+        
+        .department-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(248, 117, 170, 0.2);
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FDEDED; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #F875AA, #AEDEFC); border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#FDEDED] via-white to-[#EDFFF0] min-h-screen">
+    <!-- Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-60 w-96 h-96 bg-[#F875AA]/10 rounded-full blur-3xl float-animation"></div>
+        <div class="absolute bottom-20 right-20 w-80 h-80 bg-[#AEDEFC]/20 rounded-full blur-3xl float-animation" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 right-1/3 w-64 h-64 bg-[#EDFFF0]/40 rounded-full blur-3xl pulse-soft"></div>
+    </div>
+
+    <div class="flex min-h-screen relative z-10">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white/70 backdrop-blur-xl border-r border-white/50 flex flex-col fixed h-full z-20">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-100/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-sm tracking-tighter">HR</span>
+                    </div>
+                    <span class="text-lg font-semibold text-gray-800 tracking-tight">PeopleHub</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-1">
+                <a href="index.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a href="employees.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Employees</span>
+                </a>
+                <a href="departments.html" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-[#F875AA]">
+                    <i data-lucide="building-2" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Departments</span>
+                </a>
+                <a href="leaveApplications.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Leave Applications</span>
+                </a>
+                <a href="contracts.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Contracts</span>
+                </a>
+                <a href="settings.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-4 border-t border-gray-100/50">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold text-sm">
+                        JD
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-800 truncate">John Doe</p>
+                        <p class="text-xs text-gray-500 truncate">HR Manager</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Departments 🏢</h1>
+                    <p class="text-gray-500 text-sm mt-1">Organize and manage your company structure</p>
+                </div>
+                <button onclick="openModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white rounded-xl font-medium text-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    Add Department
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-white/50 fade-up stagger-1">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#F875AA]/20 flex items-center justify-center">
+                            <i data-lucide="building-2" class="w-5 h-5 text-[#F875AA]"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-semibold text-gray-800">6</p>
+                            <p class="text-xs text-gray-500">Total Departments</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-white/50 fade-up stagger-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#AEDEFC]/30 flex items-center justify-center">
+                            <i data-lucide="users" class="w-5 h-5 text-[#5BA3C8]"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-semibold text-gray-800">30</p>
+                            <p class="text-xs text-gray-500">Total Employees</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-white/50 fade-up stagger-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-semibold text-gray-800">8</p>
+                            <p class="text-xs text-gray-500">Largest Team</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-white/50 fade-up stagger-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-yellow-100 flex items-center justify-center">
+                            <i data-lucide="user-plus" class="w-5 h-5 text-yellow-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-semibold text-gray-800">5</p>
+                            <p class="text-xs text-gray-500">Open Positions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Engineering -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-1">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F875AA]/20 to-[#F875AA]/10 flex items-center justify-center">
+                                <i data-lucide="code-2" class="w-7 h-7 text-[#F875AA]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Engineering</h3>
+                                <p class="text-xs text-gray-500 mt-1">Building the future</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Responsible for product development, architecture, and technical innovation across all platforms.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-[#FDEDED] text-[#F875AA] rounded-lg text-xs font-medium">2 Open</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">AS</div>
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">GH</div>
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">MK</div>
+                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-gray-600 text-xs font-medium">+5</div>
+                        </div>
+                        <span class="text-xs text-gray-500">8 members</span>
+                    </div>
+                </div>
+
+                <!-- Design -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-2">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#AEDEFC]/20 to-[#AEDEFC]/10 flex items-center justify-center">
+                                <i data-lucide="palette" class="w-7 h-7 text-[#5BA3C8]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Design</h3>
+                                <p class="text-xs text-gray-500 mt-1">Creating experiences</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Crafting user experiences and visual designs that delight customers and drive engagement.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-[#FDEDED] text-[#F875AA] rounded-lg text-xs font-medium">1 Open</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">BJ</div>
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">HK</div>
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">+3</div>
+                        </div>
+                        <span class="text-xs text-gray-500">5 members</span>
+                    </div>
+                </div>
+
+                <!-- Marketing -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-3">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#EDFFF0]/50 to-[#9ED5A3]/20 flex items-center justify-center">
+                                <i data-lucide="megaphone" class="w-7 h-7 text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Marketing</h3>
+                                <p class="text-xs text-gray-500 mt-1">Spreading the word</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Driving brand awareness, lead generation, and customer acquisition through creative campaigns.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-medium">No Openings</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">CW</div>
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">IL</div>
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">+2</div>
+                        </div>
+                        <span class="text-xs text-gray-500">4 members</span>
+                    </div>
+                </div>
+
+                <!-- Sales -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-4">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FDEDED]/50 to-[#F875AA]/10 flex items-center justify-center">
+                                <i data-lucide="trending-up" class="w-7 h-7 text-[#F875AA]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Sales</h3>
+                                <p class="text-xs text-gray-500 mt-1">Closing deals</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Building relationships with clients and driving revenue through strategic sales initiatives.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-[#FDEDED] text-[#F875AA] rounded-lg text-xs font-medium">2 Open</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">DM</div>
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">JN</div>
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">+4</div>
+                        </div>
+                        <span class="text-xs text-gray-500">6 members</span>
+                    </div>
+                </div>
+
+                <!-- HR -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-5">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F875AA]/20 to-[#AEDEFC]/20 flex items-center justify-center">
+                                <i data-lucide="heart-handshake" class="w-7 h-7 text-[#F875AA]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Human Resources</h3>
+                                <p class="text-xs text-gray-500 mt-1">Taking care of people</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Managing talent acquisition, employee relations, and fostering a positive workplace culture.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-medium">No Openings</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">EB</div>
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">KO</div>
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">+1</div>
+                        </div>
+                        <span class="text-xs text-gray-500">3 members</span>
+                    </div>
+                </div>
+
+                <!-- Finance -->
+                <div class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#AEDEFC]/20 to-[#EDFFF0]/30 flex items-center justify-center">
+                                <i data-lucide="wallet" class="w-7 h-7 text-[#5BA3C8]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">Finance</h3>
+                                <p class="text-xs text-gray-500 mt-1">Managing numbers</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-[#F875AA] transition-colors">
+                            <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Overseeing financial operations, budgeting, and ensuring fiscal responsibility across the organization.</p>
+                    
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-medium">No Openings</span>
+                        <span class="px-2 py-1 bg-[#EDFFF0] text-green-600 rounded-lg text-xs font-medium">Active</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#F875AA] border-2 border-white flex items-center justify-center text-white text-xs font-medium">FG</div>
+                            <div class="w-8 h-8 rounded-full bg-[#9ED5A3] border-2 border-white flex items-center justify-center text-white text-xs font-medium">LP</div>
+                            <div class="w-8 h-8 rounded-full bg-[#AEDEFC] border-2 border-white flex items-center justify-center text-white text-xs font-medium">+2</div>
+                        </div>
+                        <span class="text-xs text-gray-500">4 members</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Department Modal -->
+    <div id="addModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-gray-800 tracking-tight">Add New Department</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-700 mb-2 block">Department Name</label>
+                    <input type="text" placeholder="Enter department name" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm transition-all">
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-700 mb-2 block">Description</label>
+                    <textarea placeholder="Brief description of the department" rows="3" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm transition-all resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-700 mb-2 block">Department Head</label>
+                    <div class="relative">
+                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
+                            <option>Select team lead</option>
+                            <option>Alice Smith</option>
+                            <option>Bob Johnson</option>
+                            <option>Carol White</option>
+                        </select>
+                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-700 mb-2 block">Icon Color</label>
+                    <div class="flex gap-2">
+                        <button class="w-10 h-10 rounded-xl bg-[#F875AA] ring-2 ring-offset-2 ring-[#F875AA]"></button>
+                        <button class="w-10 h-10 rounded-xl bg-[#AEDEFC]"></button>
+                        <button class="w-10 h-10 rounded-xl bg-[#9ED5A3]"></button>
+                        <button class="w-10 h-10 rounded-xl bg-yellow-400"></button>
+                        <button class="w-10 h-10 rounded-xl bg-purple-400"></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeModal()" class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
+                    Create Department
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        function openModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+            document.getElementById('addModal').classList.add('flex');
+            lucide.createIcons();
+        }
+        
+        function closeModal() {
+            document.getElementById('addModal').classList.add('hidden');
+            document.getElementById('addModal').classList.remove('flex');
+        }
+    </script>
+
+</body></html>
