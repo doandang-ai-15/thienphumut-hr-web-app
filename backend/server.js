@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+// Static files for uploads
+app.use('/uploads', express.static('uploads'));
+
 // Test database connection
 testConnection();
 
@@ -40,10 +43,10 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/dashboard', require('./src/routes/dashboardRoutes'));
-// app.use('/api/employees', require('./src/routes/employeeRoutes')); // Coming in VERSION 3
-// app.use('/api/departments', require('./src/routes/departmentRoutes')); // Coming in VERSION 4
-// app.use('/api/leaves', require('./src/routes/leaveRoutes')); // Coming in VERSION 4
-// app.use('/api/contracts', require('./src/routes/contractRoutes')); // Coming in VERSION 4
+app.use('/api/employees', require('./src/routes/employeeRoutes'));
+app.use('/api/departments', require('./src/routes/departmentRoutes'));
+app.use('/api/leaves', require('./src/routes/leaveRoutes'));
+app.use('/api/contracts', require('./src/routes/contractRoutes'));
 
 // Error handler (must be last)
 app.use(errorHandler);
