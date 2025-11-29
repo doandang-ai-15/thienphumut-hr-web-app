@@ -6,6 +6,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- API Configuration -->
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/navigation.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         @keyframes fadeInUp {
@@ -328,142 +333,8 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
-
-        // New Employees Chart
-        const newEmployeesCtx = document.getElementById('newEmployeesChart').getContext('2d');
-        const newEmployeesChart = new Chart(newEmployeesCtx, {
-            type: 'bar',
-            data: {
-                labels: ['October', 'November', 'December'],
-                datasets: [{
-                    label: 'New Employees',
-                    data: [8, 12, 12],
-                    backgroundColor: [
-                        'rgba(248, 117, 170, 0.8)',
-                        'rgba(174, 222, 252, 0.8)',
-                        'rgba(237, 255, 240, 0.9)'
-                    ],
-                    borderColor: [
-                        '#F875AA',
-                        '#AEDEFC',
-                        '#a8e6b0'
-                    ],
-                    borderWidth: 2,
-                    borderRadius: 12,
-                    borderSkipped: false,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'white',
-                        titleColor: '#1f2937',
-                        bodyColor: '#6b7280',
-                        borderColor: '#F875AA',
-                        borderWidth: 1,
-                        cornerRadius: 12,
-                        padding: 12
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(248, 117, 170, 0.1)'
-                        },
-                        ticks: {
-                            color: '#9ca3af'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#9ca3af'
-                        }
-                    }
-                },
-                animation: {
-                    duration: 1500,
-                    easing: 'easeOutQuart'
-                }
-            }
-        });
-
-        // Department Distribution Chart
-        const departmentCtx = document.getElementById('departmentChart').getContext('2d');
-        const departmentChart = new Chart(departmentCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Engineering', 'Marketing', 'Sales', 'HR', 'Design', 'Finance'],
-                datasets: [{
-                    data: [65, 42, 38, 28, 35, 40],
-                    backgroundColor: [
-                        '#F875AA',
-                        '#AEDEFC',
-                        '#a8e6b0',
-                        '#FDEDED',
-                        '#fbbf24',
-                        '#c4b5fd'
-                    ],
-                    borderColor: 'white',
-                    borderWidth: 4,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            padding: 15,
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            color: '#6b7280',
-                            font: {
-                                size: 12
-                            }
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: 'white',
-                        titleColor: '#1f2937',
-                        bodyColor: '#6b7280',
-                        borderColor: '#F875AA',
-                        borderWidth: 1,
-                        cornerRadius: 12,
-                        padding: 12
-                    }
-                },
-                animation: {
-                    animateRotate: true,
-                    animateScale: true,
-                    duration: 1500,
-                    easing: 'easeOutQuart'
-                }
-            }
-        });
-
-        // Animate progress bars on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const progressBars = document.querySelectorAll('.progress-bar');
-            progressBars.forEach((bar, index) => {
-                const width = bar.style.width;
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 500 + (index * 100));
-            });
-        });
     </script>
 
+    <!-- Dashboard Script -->
+    <script src="/js/dashboard.js"></script>
 </body></html>

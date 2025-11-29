@@ -5,6 +5,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- API Configuration -->
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         
@@ -487,46 +491,8 @@
             lucide.createIcons();
         }
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const btn = document.getElementById('loginBtn');
-            const btnText = document.getElementById('loginBtnText');
-            const btnLoader = document.getElementById('loginBtnLoader');
-            
-            btnText.classList.add('hidden');
-            btnLoader.classList.remove('hidden');
-            btnLoader.classList.add('flex');
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                btnLoader.classList.remove('flex');
-                btn.disabled = false;
-                alert('Login successful! Redirecting to dashboard...');
-            }, 2000);
-        }
-
-        function handleRegister(event) {
-            event.preventDefault();
-            const btn = document.getElementById('registerBtn');
-            const btnText = document.getElementById('registerBtnText');
-            const btnLoader = document.getElementById('registerBtnLoader');
-            
-            btnText.classList.add('hidden');
-            btnLoader.classList.remove('hidden');
-            btnLoader.classList.add('flex');
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                btnLoader.classList.remove('flex');
-                btn.disabled = false;
-                alert('Account created successfully! Welcome to PeopleHub!');
-                switchTab('login');
-            }, 2000);
-        }
     </script>
 
+    <!-- Auth Script -->
+    <script src="/js/auth.js"></script>
 </body></html>
