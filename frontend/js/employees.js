@@ -264,9 +264,30 @@ async function openAddEmployeeModal() {
 
 // Setup form handler for dynamically loaded modal
 function setupModalFormHandler() {
+    console.log('🔧 Setting up modal handlers...');
+
     const addForm = document.getElementById('addEmployeeForm');
     if (addForm) {
         addForm.addEventListener('submit', handleAddEmployee);
+        console.log('✅ Form submit handler attached');
+    }
+
+    // Setup photo upload
+    const photoInput = document.getElementById('photoInput');
+    if (photoInput) {
+        console.log('✅ Photo input found, attaching listener...');
+        photoInput.addEventListener('change', function(e) {
+            console.log('📸 Photo change event fired');
+            const file = e.target.files[0];
+            if (file) {
+                console.log('📁 File selected:', file.name, file.size, 'bytes');
+                handlePhotoUpload(file);
+            } else {
+                console.log('⚠️ No file selected');
+            }
+        });
+    } else {
+        console.error('❌ Photo input not found!');
     }
 }
 
@@ -329,7 +350,8 @@ async function handleAddEmployee(event) {
         city: formData.get('city'),
         state: formData.get('state'),
         zip_code: formData.get('zip_code'),
-        country: formData.get('country')
+        country: formData.get('country'),
+        photo: uploadedPhoto // Include uploaded photo
     };
 
     try {
@@ -341,6 +363,7 @@ async function handleAddEmployee(event) {
             showSuccess('Employee added successfully!');
             closeAddEmployeeModal();
             form.reset();
+            uploadedPhoto = null; // Reset uploaded photo
 
             // Reload employee list to show new employee immediately
             await loadEmployees();
@@ -352,8 +375,64 @@ async function handleAddEmployee(event) {
     }
 }
 
+// Global variable to store uploaded photo
+let uploadedPhoto = null;
+
+// Handle photo upload in modal
+function handlePhotoUpload(file) {
+    console.log('🖼️ handlePhotoUpload called with file:', file);
+
+    if (!file) {
+        console.log('❌ No file provided');
+        return;
+    }
+
+    console.log('📋 File details:', {
+        name: file.name,
+        type: file.type,
+        size: file.size
+    });
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+        console.log('❌ Invalid file type:', file.type);
+        showError('Please select an image file');
+        return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+        console.log('❌ File too large:', file.size);
+        showError('Image size should be less than 5MB');
+        return;
+    }
+
+    console.log('✅ File validation passed, converting to base64...');
+
+    // Convert to base64
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        uploadedPhoto = e.target.result;
+        console.log('✅ Photo converted to base64, length:', uploadedPhoto.length);
+
+        // Update UI to show preview
+        const photoUpload = document.querySelector('.photo-upload');
+        if (photoUpload) {
+            console.log('✅ Updating photo preview UI');
+            photoUpload.innerHTML = `<img src="${uploadedPhoto}" alt="Preview" class="w-full h-full object-cover rounded-full">`;
+        } else {
+            console.error('❌ .photo-upload element not found!');
+        }
+    };
+    reader.onerror = function(error) {
+        console.error('❌ FileReader error:', error);
+    };
+    reader.readAsDataURL(file);
+}
+
 // Initialize employees page
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Initializing employees page...');
     loadEmployees();
     lucide.createIcons();
 
@@ -362,6 +441,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchInput) {
         searchInput.addEventListener('input', handleSearch);
     }
+
+    // Photo upload will be setup when modal opens (in setupModalFormHandler)
 
     // Close modal on escape
     document.addEventListener('keydown', function(e) {

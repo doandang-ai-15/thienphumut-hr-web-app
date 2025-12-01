@@ -10,8 +10,6 @@
     <script src="/js/config.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/navigation.js"></script>
-    <script src="/js/translations.js"></script>
-    <script src="/js/dateFormat.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         
@@ -284,15 +282,11 @@
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Language</p>
-                                        <p class="text-xs text-gray-500">Select your preferred language</p>
+                                        <p class="text-sm font-medium text-gray-800">Ngôn ngữ</p>
+                                        <p class="text-xs text-gray-500">Ngôn ngữ mặc định của hệ thống</p>
                                     </div>
-                                    <div class="relative">
-                                        <select id="languageSelect" class="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm appearance-none cursor-pointer pr-10">
-                                            <option value="vi" selected>Vietnamese</option>
-                                            <option value="en">English</option>
-                                        </select>
-                                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    <div class="px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-600">
+                                        Tiếng Việt
                                     </div>
                                 </div>
 
@@ -308,16 +302,11 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Date Format</p>
-                                        <p class="text-xs text-gray-500">How dates are displayed</p>
+                                        <p class="text-sm font-medium text-gray-800">Định dạng ngày</p>
+                                        <p class="text-xs text-gray-500">Định dạng hiển thị ngày tháng</p>
                                     </div>
-                                    <div class="relative">
-                                        <select id="dateFormatSelect" class="px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm appearance-none cursor-pointer pr-10">
-                                            <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
-                                            <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-                                        </select>
-                                        <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                    <div class="px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-600">
+                                        DD/MM/YYYY
                                     </div>
                                 </div>
                             </div>
@@ -373,15 +362,6 @@
                             <!-- Save Button -->
                             <div class="mt-6">
                                 <button type="button" id="saveCompanyBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
-                                    Save Changes
-                                </button>
-                            </div>
-
-                            <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
-                                <button class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
-                                    Cancel
-                                </button>
-                                <button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
                                     Save Changes
                                 </button>
                             </div>

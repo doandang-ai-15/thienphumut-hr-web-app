@@ -186,32 +186,8 @@ function showSection(sectionName) {
     }
 }
 
-// Handle language change
-function handleLanguageChange(lang) {
-    localStorage.setItem('language', lang);
-
-    if (lang === 'en') {
-        showSuccess('Language changed to English');
-    } else {
-        showSuccess('Ngôn ngữ đã được đổi sang Tiếng Việt');
-    }
-
-    // Translate the current page
-    if (typeof translatePage === 'function') {
-        translatePage();
-    }
-}
-
-// Handle date format change
-function handleDateFormatChange(format) {
-    localStorage.setItem('dateFormat', format);
-    showSuccess(`Date format changed to ${format}`);
-
-    // Reformat all dates on page
-    if (typeof formatAllDatesOnPage === 'function') {
-        formatAllDatesOnPage();
-    }
-}
+// Language and date format are now static (Vietnamese and DD/MM/YYYY)
+// No change functionality needed
 
 // Toggle password visibility
 function togglePasswordVisibility(inputId) {
@@ -353,29 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show profile section by default
     showSection('profile');
 
-    // Setup language select handler
-    const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) {
-        // Load saved language
-        const savedLang = localStorage.getItem('language') || 'vi';
-        languageSelect.value = savedLang;
-
-        languageSelect.addEventListener('change', function() {
-            handleLanguageChange(this.value);
-        });
-    }
-
-    // Setup date format select handler
-    const dateFormatSelect = document.getElementById('dateFormatSelect');
-    if (dateFormatSelect) {
-        // Load saved format
-        const savedFormat = localStorage.getItem('dateFormat') || 'DD/MM/YYYY';
-        dateFormatSelect.value = savedFormat;
-
-        dateFormatSelect.addEventListener('change', function() {
-            handleDateFormatChange(this.value);
-        });
-    }
+    // Language and date format are now static - no event listeners needed
 
     // Setup avatar upload handler
     const avatarUpload = document.getElementById('avatarUpload');

@@ -56,29 +56,28 @@ function updateUserInfo(user) {
 
 // Update stats cards
 function updateStatsCards(stats) {
-    // Total Employees
-    const totalEmpElement = document.querySelector('.text-2xl.font-semibold.text-gray-800');
-    if (totalEmpElement && totalEmpElement.textContent === '248') {
-        totalEmpElement.textContent = stats.total_employees || 0;
+    console.log('📊 Dashboard Stats:', stats);
+
+    // Get all stat elements
+    const statElements = document.querySelectorAll('.text-2xl.font-semibold.text-gray-800');
+    console.log('📈 Found stat elements:', statElements.length);
+
+    // Total Employees (first card)
+    if (statElements[0]) {
+        console.log('👥 Setting Total Employees:', stats.total_employees);
+        statElements[0].textContent = stats.total_employees || 0;
     }
 
-    // New This Month
-    const newEmployees = document.querySelectorAll('.text-2xl.font-semibold.text-gray-800')[1];
-    if (newEmployees) {
-        newEmployees.textContent = stats.new_this_month || 0;
+    // New This Month (second card)
+    if (statElements[1]) {
+        console.log('✨ Setting New This Month:', stats.new_this_month);
+        statElements[1].textContent = stats.new_this_month || 0;
     }
 
-    // Departments
-    const departments = document.querySelectorAll('.text-2xl.font-semibold.text-gray-800')[2];
-    if (departments) {
-        departments.textContent = stats.total_departments || 0;
-    }
-
-    // Satisfaction
-    const satisfaction = document.querySelectorAll('.text-2xl.font-semibold.text-gray-800')[3];
-    if (satisfaction) {
-        const satValue = stats.avg_satisfaction || 0;
-        satisfaction.textContent = `${satValue}%`;
+    // Departments (third card)
+    if (statElements[2]) {
+        console.log('🏢 Setting Departments:', stats.total_departments);
+        statElements[2].textContent = stats.total_departments || 0;
     }
 }
 
