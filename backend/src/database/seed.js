@@ -69,11 +69,11 @@ async function seedDatabase() {
         const leaveQuery = `
             INSERT INTO leave_applications (employee_id, leave_type, start_date, end_date, days, reason, status, approved_by, approved_at)
             VALUES
-                (2, 'vacation', '2024-12-20', '2024-12-27', 7, 'Year-end vacation', 'approved', 1, CURRENT_TIMESTAMP),
-                (3, 'sick', '2024-11-15', '2024-11-16', 2, 'Medical appointment', 'approved', 1, CURRENT_TIMESTAMP),
-                (9, 'personal', '2024-11-28', '2024-11-29', 2, 'Family event', 'pending', NULL, NULL),
-                (5, 'vacation', '2024-12-10', '2024-12-17', 7, 'Holiday trip', 'pending', NULL, NULL),
-                (7, 'sick', '2024-11-20', '2024-11-21', 2, 'Flu recovery', 'approved', 2, CURRENT_TIMESTAMP)
+                (2, 'Du lịch', '2024-12-20', '2024-12-27', 7, 'Nghỉ cuối năm', 'duyệt', 1, CURRENT_TIMESTAMP),
+                (3, 'Bệnh', '2024-11-15', '2024-11-16', 2, 'Khám bệnh', 'duyệt', 1, CURRENT_TIMESTAMP),
+                (9, 'Lý do cá nhân', '2024-11-28', '2024-11-29', 2, 'Sự kiện gia đình', 'chờ xét duyệt', NULL, NULL),
+                (5, 'Du lịch', '2024-12-10', '2024-12-17', 7, 'Kỳ nghỉ lễ', 'chờ xét duyệt', NULL, NULL),
+                (7, 'Bệnh', '2024-11-20', '2024-11-21', 2, 'Bị cúm', 'duyệt', 2, CURRENT_TIMESTAMP)
         `;
         await client.query(leaveQuery);
         console.log('✅ Leave applications seeded');
@@ -82,11 +82,11 @@ async function seedDatabase() {
         const contractQuery = `
             INSERT INTO contracts (employee_id, contract_type, contract_number, start_date, end_date, salary, terms, status, file_path, signed_at)
             VALUES
-                (2, 'permanent', 'CNT-2019-001', '2019-03-01', NULL, 120000, 'Full-time permanent employment contract with benefits', 'active', NULL, '2019-03-01'),
-                (3, 'permanent', 'CNT-2020-002', '2020-06-15', NULL, 95000, 'Full-time permanent employment contract', 'active', NULL, '2020-06-15'),
-                (4, 'permanent', 'CNT-2021-003', '2021-01-10', NULL, 88000, 'Management contract with performance bonuses', 'active', NULL, '2021-01-10'),
-                (7, 'permanent', 'CNT-2021-004', '2021-11-01', NULL, 95000, 'Software engineer contract', 'active', NULL, '2021-11-01'),
-                (16, 'fixed-term', 'CNT-2020-005', '2020-10-01', '2024-10-01', 72000, 'Fixed-term contract - 4 years', 'expired', NULL, '2020-10-01')
+                (2, 'vĩnh viễn', 'CNT-2019-001', '2019-03-01', NULL, 120000, 'Hợp đồng toàn thời gian vĩnh viễn với đầy đủ quyền lợi', 'còn thời hạn', NULL, '2019-03-01'),
+                (3, 'vĩnh viễn', 'CNT-2020-002', '2020-06-15', NULL, 95000, 'Hợp đồng toàn thời gian vĩnh viễn', 'còn thời hạn', NULL, '2020-06-15'),
+                (4, 'vĩnh viễn', 'CNT-2021-003', '2021-01-10', NULL, 88000, 'Hợp đồng quản lý với thưởng hiệu suất', 'còn thời hạn', NULL, '2021-01-10'),
+                (7, 'vĩnh viễn', 'CNT-2021-004', '2021-11-01', NULL, 95000, 'Hợp đồng kỹ sư phần mềm', 'còn thời hạn', NULL, '2021-11-01'),
+                (16, 'có thời hạn', 'CNT-2020-005', '2020-10-01', '2024-10-01', 72000, 'Hợp đồng có thời hạn - 4 năm', 'hết hạn', NULL, '2020-10-01')
         `;
         await client.query(contractQuery);
         console.log('✅ Contracts seeded');

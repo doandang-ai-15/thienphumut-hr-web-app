@@ -20,9 +20,11 @@ exports.getLeaves = asyncHandler(async (req, res) => {
             e.last_name,
             e.employee_id as employee_code,
             e.job_title,
+            e.photo as employee_photo,
             d.name as department,
             a.first_name as approver_first_name,
-            a.last_name as approver_last_name
+            a.last_name as approver_last_name,
+            a.photo as approver_photo
         FROM leave_applications l
         JOIN employees e ON l.employee_id = e.id
         LEFT JOIN departments d ON e.department_id = d.id
@@ -93,9 +95,11 @@ exports.getLeave = asyncHandler(async (req, res) => {
             e.employee_id as employee_code,
             e.email,
             e.job_title,
+            e.photo as employee_photo,
             d.name as department,
             a.first_name as approver_first_name,
-            a.last_name as approver_last_name
+            a.last_name as approver_last_name,
+            a.photo as approver_photo
         FROM leave_applications l
         JOIN employees e ON l.employee_id = e.id
         LEFT JOIN departments d ON e.department_id = d.id
@@ -153,7 +157,7 @@ exports.createLeave = asyncHandler(async (req, res) => {
     const overlapCheck = await pool.query(`
         SELECT id FROM leave_applications
         WHERE employee_id = $1
-        AND status != 'rejected'
+        AND status != 'không duyệt'
         AND (
             (start_date <= $2 AND end_date >= $2) OR
             (start_date <= $3 AND end_date >= $3) OR
@@ -170,7 +174,7 @@ exports.createLeave = asyncHandler(async (req, res) => {
 
     const result = await pool.query(`
         INSERT INTO leave_applications (employee_id, leave_type, start_date, end_date, days, reason, status)
-        VALUES ($1, $2, $3, $4, $5, $6, 'pending')
+        VALUES ($1, $2, $3, $4, $5, $6, 'chờ xét duyệt')
         RETURNING *
     `, [targetEmployeeId, leave_type, start_date, end_date, days, reason]);
 
@@ -194,10 +198,10 @@ exports.updateLeaveStatus = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    if (!['approved', 'rejected'].includes(status)) {
+    if (!['duyệt', 'không duyệt'].includes(status)) {
         return res.status(400).json({
             success: false,
-            message: 'Status must be either approved or rejected'
+            message: 'Status must be either duyệt or không duyệt'
         });
     }
 
@@ -216,7 +220,7 @@ exports.updateLeaveStatus = asyncHandler(async (req, res) => {
 
     const leave = leaveCheck.rows[0];
 
-    if (leave.status !== 'pending') {
+    if (leave.status !== 'chờ xét duyệt') {
         return res.status(400).json({
             success: false,
             message: `Leave application is already ${leave.status}`
@@ -232,7 +236,7 @@ exports.updateLeaveStatus = asyncHandler(async (req, res) => {
     `, [status, req.user.id, id]);
 
     // Update employee status if approved
-    if (status === 'approved') {
+    if (status === 'duyệt') {
         const today = new Date();
         const startDate = new Date(leave.start_date);
         const endDate = new Date(leave.end_date);
@@ -249,7 +253,7 @@ exports.updateLeaveStatus = asyncHandler(async (req, res) => {
     // Log activity
     await pool.query(
         'INSERT INTO activity_logs (employee_id, action, description) VALUES ($1, $2, $3)',
-        [req.user.id, 'UPDATE_LEAVE', `${status === 'approved' ? 'Approved' : 'Rejected'} leave application #${id}`]
+        [req.user.id, 'UPDATE_LEAVE', `${status === 'duyệt' ? 'Approved' : 'Rejected'} leave application #${id}`]
     );
 
     res.status(200).json({
@@ -280,7 +284,7 @@ exports.deleteLeave = asyncHandler(async (req, res) => {
     const leave = leaveResult.rows[0];
 
     // Only allow deletion if pending or if user is admin
-    if (leave.status !== 'pending' && req.user.role !== 'admin') {
+    if (leave.status !== 'chờ xét duyệt' && req.user.role !== 'admin') {
         return res.status(403).json({
             success: false,
             message: 'Cannot delete approved/rejected leave applications'
@@ -319,7 +323,7 @@ exports.getLeaveStats = asyncHandler(async (req, res) => {
     const byTypeResult = await pool.query(`
         SELECT leave_type, COUNT(*) as count, SUM(days) as total_days
         FROM leave_applications
-        WHERE EXTRACT(YEAR FROM created_at) = $1 AND status = 'approved'
+        WHERE EXTRACT(YEAR FROM created_at) = $1 AND status = 'duyệt'
         GROUP BY leave_type
     `, [year]);
 
@@ -338,7 +342,7 @@ exports.getLeaveStats = asyncHandler(async (req, res) => {
             COUNT(*) as count,
             SUM(days) as total_days
         FROM leave_applications
-        WHERE EXTRACT(YEAR FROM start_date) = $1 AND status = 'approved'
+        WHERE EXTRACT(YEAR FROM start_date) = $1 AND status = 'duyệt'
         GROUP BY TO_CHAR(start_date, 'Mon'), EXTRACT(MONTH FROM start_date)
         ORDER BY EXTRACT(MONTH FROM start_date)
     `, [year]);

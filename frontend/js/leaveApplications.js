@@ -38,9 +38,9 @@ async function loadLeaves(status = null) {
 
 // Calculate statistics
 function calculateStats(leaves) {
-    const pending = leaves.filter(l => l.status === 'pending').length;
-    const approved = leaves.filter(l => l.status === 'approved').length;
-    const rejected = leaves.filter(l => l.status === 'rejected').length;
+    const pending = leaves.filter(l => l.status === 'chờ xét duyệt').length;
+    const approved = leaves.filter(l => l.status === 'duyệt').length;
+    const rejected = leaves.filter(l => l.status === 'không duyệt').length;
     const total = leaves.length;
 
     currentStats = { pending, approved, rejected, total };
@@ -152,7 +152,7 @@ function renderLeaves(leaves) {
                     <button onclick="viewLeaveDetail(${leave.id})" class="p-2 hover:bg-white rounded-lg transition-colors" title="View Details">
                         <i data-lucide="eye" class="w-4 h-4 text-gray-600"></i>
                     </button>
-                    ${leave.status === 'pending' && (window.userRole === 'admin' || window.userRole === 'manager') ? `
+                    ${leave.status === 'chờ xét duyệt' && (window.userRole === 'admin' || window.userRole === 'manager') ? `
                         <button onclick="approveLeave(${leave.id})" class="p-2 hover:bg-green-50 rounded-lg transition-colors" title="Approve">
                             <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
                         </button>
@@ -230,7 +230,7 @@ function showLeaveDetailModal(leave) {
             <div class="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-semibold text-gray-800">Leave Request Details</h2>
+                        <h2 class="text-2xl font-semibold text-gray-800">Chi tiết đơn nghỉ phép</h2>
                         <p class="text-sm text-gray-500 mt-1 capitalize">${leave.leave_type || 'Leave'} Request</p>
                     </div>
                     <button onclick="closeLeaveDetailModal()" class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
@@ -242,7 +242,7 @@ function showLeaveDetailModal(leave) {
             <div class="px-8 py-6 space-y-6">
                 <!-- Employee Info -->
                 <div>
-                    <p class="text-sm text-gray-500 mb-2">Employee</p>
+                    <p class="text-sm text-gray-500 mb-2">Thông tin nhân viên</p>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
                             ${leave.employee_photo
@@ -260,58 +260,69 @@ function showLeaveDetailModal(leave) {
                 <!-- Leave Details -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Leave Type</p>
+                        <p class="text-sm text-gray-500 mb-1">Loại nghỉ phép</p>
                         <p class="font-medium text-gray-800 capitalize">${leave.leave_type || 'N/A'}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Status</p>
+                        <p class="text-sm text-gray-500 mb-1">Tình trạng</p>
                         <span class="inline-block px-3 py-1 rounded-full ${color.bg} ${color.text} text-sm font-medium capitalize">
                             ${leave.status}
                         </span>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Start Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Từ ngày</p>
                         <p class="font-medium text-gray-800">${startDate}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">End Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Đến ngày</p>
                         <p class="font-medium text-gray-800">${endDate}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Duration</p>
+                        <p class="text-sm text-gray-500 mb-1">Trong vòng</p>
                         <p class="font-medium text-gray-800">${days} day${days > 1 ? 's' : ''}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Applied On</p>
+                        <p class="text-sm text-gray-500 mb-1">Có hiệu lực từ</p>
                         <p class="font-medium text-gray-800">${new Date(leave.created_at).toLocaleDateString()}</p>
                     </div>
                 </div>
 
                 <!-- Reason -->
                 <div>
-                    <p class="text-sm text-gray-500 mb-2">Reason</p>
+                    <p class="text-sm text-gray-500 mb-2">Lý do</p>
                     <p class="text-gray-800 p-3 bg-gray-50 rounded-xl">${leave.reason || 'No reason provided'}</p>
                 </div>
 
-                ${leave.approved_by_name ? `
+                ${leave.approver_first_name ? `
                     <div>
-                        <p class="text-sm text-gray-500 mb-2">${leave.status === 'approved' ? 'Approved' : 'Reviewed'} By</p>
-                        <p class="font-medium text-gray-800">${leave.approved_by_name}</p>
+                        <p class="text-sm text-gray-500 mb-2">${leave.status === 'duyệt' ? 'Approved' : 'Reviewed'} By</p>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
+                                ${leave.approver_photo
+                                    ? `<img src="${leave.approver_photo}" alt="${leave.approver_first_name} ${leave.approver_last_name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-white text-sm font-semibold\\'>${leave.approver_first_name[0]}${leave.approver_last_name[0]}</div>';">`
+                                    : `<div class="w-full h-full flex items-center justify-center text-white text-sm font-semibold">${leave.approver_first_name[0]}${leave.approver_last_name[0]}</div>`
+                                }
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">${leave.approver_first_name} ${leave.approver_last_name}</p>
+                                <p class="text-sm text-gray-500">${leave.status === 'duyệt' ? 'Approver' : 'Reviewer'}</p>
+                            </div>
+                        </div>
                     </div>
                 ` : ''}
             </div>
 
             <div class="px-8 py-5 border-t border-gray-100 bg-gray-50 flex gap-3">
-                ${leave.status === 'pending' && (window.userRole === 'admin' || window.userRole === 'manager') ? `
+                ${leave.status === 'chờ xét duyệt' && (window.userRole === 'admin' || window.userRole === 'manager') ? `
                     <button onclick="approveLeaveFromModal(${leave.id})" class="flex-1 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all">
-                        Approve
+                        Duyệt
                     </button>
                     <button onclick="rejectLeaveFromModal(${leave.id})" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-all">
-                        Reject
+                        Không duyệt
                     </button>
                 ` : `
                     <button onclick="closeLeaveDetailModal()" class="flex-1 py-3 bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white rounded-xl font-medium hover:shadow-lg transition-all">
-                        Close
+                        Đóng
                     </button>
                 `}
             </div>
@@ -332,11 +343,11 @@ function closeLeaveDetailModal() {
 
 // Approve leave
 async function approveLeave(id) {
-    if (!confirm('Are you sure you want to approve this leave request?')) return;
+    if (!confirm('Bạn có chắc muốn duyệt đơn nghỉ phép này không?')) return;
 
     try {
         showLoading();
-        const response = await api.updateLeave(id, { status: 'approved' });
+        const response = await api.updateLeave(id, { status: 'duyệt' });
 
         if (response.success) {
             hideLoading();
@@ -352,11 +363,11 @@ async function approveLeave(id) {
 
 // Reject leave
 async function rejectLeave(id) {
-    if (!confirm('Are you sure you want to reject this leave request?')) return;
+    if (!confirm('Bạn có chắc muốn không duyệt đơn xin nghỉ phép này không?')) return;
 
     try {
         showLoading();
-        const response = await api.updateLeave(id, { status: 'rejected' });
+        const response = await api.updateLeave(id, { status: 'không duyệt' });
 
         if (response.success) {
             hideLoading();
@@ -553,9 +564,17 @@ function applyFilters() {
 
     let filtered = currentLeaves;
 
+    // Map English filter values to Vietnamese database values
+    const statusMap = {
+        'pending': 'chờ xét duyệt',
+        'approved': 'duyệt',
+        'rejected': 'không duyệt'
+    };
+
     // Apply status filter from tab
     if (currentFilter !== 'all') {
-        filtered = filtered.filter(leave => leave.status === currentFilter);
+        const dbStatus = statusMap[currentFilter] || currentFilter;
+        filtered = filtered.filter(leave => leave.status === dbStatus);
     }
 
     // Apply type filter

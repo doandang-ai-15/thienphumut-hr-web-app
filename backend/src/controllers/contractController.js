@@ -21,6 +21,7 @@ exports.getContracts = asyncHandler(async (req, res) => {
             e.employee_id as employee_code,
             e.email,
             e.job_title,
+            e.photo as employee_photo,
             d.name as department
         FROM contracts c
         JOIN employees e ON c.employee_id = e.id
@@ -92,6 +93,7 @@ exports.getContract = asyncHandler(async (req, res) => {
             e.email,
             e.job_title,
             e.phone,
+            e.photo as employee_photo,
             d.name as department
         FROM contracts c
         JOIN employees e ON c.employee_id = e.id
@@ -133,7 +135,7 @@ exports.createContract = asyncHandler(async (req, res) => {
         end_date,
         salary,
         terms,
-        status = 'draft'
+        status = 'dự thảo hợp đồng'
     } = req.body;
 
     // Generate contract number
@@ -297,7 +299,7 @@ exports.signContract = asyncHandler(async (req, res) => {
 
     const contract = contractResult.rows[0];
 
-    if (contract.status === 'active' && contract.signed_at) {
+    if (contract.status === 'còn thời hạn' && contract.signed_at) {
         return res.status(400).json({
             success: false,
             message: 'Contract is already signed'
@@ -306,7 +308,7 @@ exports.signContract = asyncHandler(async (req, res) => {
 
     const result = await pool.query(`
         UPDATE contracts
-        SET status = 'active', signed_at = CURRENT_TIMESTAMP
+        SET status = 'còn thời hạn', signed_at = CURRENT_TIMESTAMP
         WHERE id = $1
         RETURNING *
     `, [id]);
@@ -348,12 +350,13 @@ exports.getContractStats = asyncHandler(async (req, res) => {
             c.*,
             e.first_name,
             e.last_name,
-            e.employee_id as employee_code
+            e.employee_id as employee_code,
+            e.photo as employee_photo
         FROM contracts c
         JOIN employees e ON c.employee_id = e.id
         WHERE c.end_date IS NOT NULL
         AND c.end_date BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '30 days'
-        AND c.status = 'active'
+        AND c.status = 'còn thời hạn'
         ORDER BY c.end_date
     `);
 

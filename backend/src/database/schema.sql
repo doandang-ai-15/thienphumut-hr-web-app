@@ -72,7 +72,7 @@ CREATE TABLE leave_applications (
     end_date DATE NOT NULL,
     days INTEGER NOT NULL,
     reason TEXT,
-    status VARCHAR(20) DEFAULT 'pending',
+    status VARCHAR(20) DEFAULT 'chờ xét duyệt',
     approved_by INTEGER REFERENCES employees(id) ON DELETE SET NULL,
     approved_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -91,13 +91,13 @@ CREATE TABLE contracts (
     end_date DATE,
     salary NUMERIC(12, 2),
     terms TEXT,
-    status VARCHAR(20) DEFAULT 'draft',
+    status VARCHAR(20) DEFAULT 'dự thảo hợp đồng',
     file_path VARCHAR(255),
     signed_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT chk_contract_type CHECK (contract_type IN ('permanent', 'fixed-term', 'freelance', 'internship')),
-    CONSTRAINT chk_contract_status CHECK (status IN ('active', 'expired', 'terminated', 'draft'))
+    CONSTRAINT chk_contract_type CHECK (contract_type IN ('vĩnh viễn', 'có thời hạn', 'freelance', 'thực tập sinh')),
+    CONSTRAINT chk_contract_status CHECK (status IN ('còn thời hạn', 'hết hạn', 'chấm dứt', 'dự thảo hợp đồng'))
 );
 
 -- Activity Logs Table

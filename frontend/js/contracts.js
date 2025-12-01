@@ -39,14 +39,14 @@ async function loadContracts(status = null) {
 // Calculate statistics
 function calculateStats(contracts) {
     const total = contracts.length;
-    const active = contracts.filter(c => c.status === 'active').length;
-    const expired = contracts.filter(c => c.status === 'expired').length;
+    const active = contracts.filter(c => c.status === 'còn thời hạn').length;
+    const expired = contracts.filter(c => c.status === 'hết hạn').length;
 
     // Expiring soon: active contracts ending within 30 days
     const today = new Date();
     const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
     const expiring = contracts.filter(c => {
-        if (c.status !== 'active' || !c.end_date) return false;
+        if (c.status !== 'còn thời hạn' || !c.end_date) return false;
         const endDate = new Date(c.end_date);
         return endDate >= today && endDate <= thirtyDaysFromNow;
     }).length;
@@ -117,7 +117,7 @@ function renderContracts(contracts) {
         };
 
         // Check if expiring soon (within 30 days)
-        const isExpiringSoon = contract.status === 'active' && contract.end_date && (() => {
+        const isExpiringSoon = contract.status === 'còn thời hạn' && contract.end_date && (() => {
             const today = new Date();
             const end = new Date(contract.end_date);
             const daysUntilExpiry = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
@@ -160,7 +160,7 @@ function renderContracts(contracts) {
                 <!-- Salary -->
                 <div class="col-span-2">
                     <p class="text-sm text-gray-800 font-medium">$${contract.salary ? Number(contract.salary).toLocaleString() : 'N/A'}</p>
-                    <p class="text-xs text-gray-500">Annual</p>
+                    <p class="text-xs text-gray-500">Hàng tháng</p>
                 </div>
 
                 <!-- Status -->
@@ -389,7 +389,7 @@ async function loadEmployeesForContract() {
         if (response.success) {
             const select = document.querySelector('#addContractForm select[name="employee_id"]');
             if (select) {
-                select.innerHTML = '<option value="">Select employee</option>' +
+                select.innerHTML = '<option value="">Chọn nhân viên</option>' +
                     response.data.map(emp =>
                         `<option value="${emp.id}">${emp.employee_id} - ${emp.first_name} ${emp.last_name}</option>`
                     ).join('');
@@ -457,17 +457,26 @@ function applyFilters() {
 
     let filtered = currentContracts;
 
+    // Map English filter values to Vietnamese database values
+    const statusMap = {
+        'active': 'còn thời hạn',
+        'expired': 'hết hạn',
+        'terminated': 'chấm dứt',
+        'draft': 'dự thảo hợp đồng'
+    };
+
     // Apply status filter from tab
     if (currentFilter === 'expiring') {
         const today = new Date();
         const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
         filtered = filtered.filter(c => {
-            if (c.status !== 'active' || !c.end_date) return false;
+            if (c.status !== 'còn thời hạn' || !c.end_date) return false;
             const endDate = new Date(c.end_date);
             return endDate >= today && endDate <= thirtyDaysFromNow;
         });
     } else if (currentFilter !== 'all') {
-        filtered = filtered.filter(contract => contract.status === currentFilter);
+        const dbStatus = statusMap[currentFilter] || currentFilter;
+        filtered = filtered.filter(contract => contract.status === dbStatus);
     }
 
     // Apply type filter
