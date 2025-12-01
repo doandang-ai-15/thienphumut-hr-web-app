@@ -77,8 +77,8 @@ CREATE TABLE leave_applications (
     approved_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT chk_leave_type CHECK (leave_type IN ('vacation', 'sick', 'personal', 'unpaid', 'maternity', 'paternity')),
-    CONSTRAINT chk_leave_status CHECK (status IN ('pending', 'approved', 'rejected'))
+    CONSTRAINT chk_leave_type CHECK (leave_type IN ('Du lịch', 'Bệnh', 'Lý do cá nhân', 'Nghỉ không lương', 'Thai sản', 'Nghĩa vụ quân sự', 'Khác')),
+    CONSTRAINT chk_leave_status CHECK (status IN ('chờ xét duyệt', 'duyệt', 'không duyệt'))
 );
 
 -- Contracts Table

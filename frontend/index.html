@@ -50,40 +50,45 @@
             <nav class="space-y-2">
                 <a href="index.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-[#F875AA]/20 to-[#AEDEFC]/20 text-[#F875AA] font-medium">
                     <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                    <span class="text-sm">Dashboard</span>
+                    <span class="text-sm">Bảng tổng quát</span>
                 </a>
                 <a href="employees.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-[#F875AA]">
                     <i data-lucide="users" class="w-5 h-5"></i>
-                    <span class="text-sm">Employees</span>
+                    <span class="text-sm">Nhân viên</span>
                 </a>
                 <a href="departments.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-[#F875AA]">
                     <i data-lucide="briefcase" class="w-5 h-5"></i>
-                    <span class="text-sm">Departments</span>
+                    <span class="text-sm">Phòng ban</span>
                 </a>
                 <a href="leaveApplications.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-[#F875AA]">
                     <i data-lucide="calendar-days" class="w-5 h-5"></i>
-                    <span class="text-sm">Leave Applications</span>
+                    <span class="text-sm">Đơn xin nghỉ phép</span>
                 </a>
                 <a href="contracts.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-[#F875AA]">
                     <i data-lucide="file-text" class="w-5 h-5"></i>
-                    <span class="text-sm">Contracts</span>
+                    <span class="text-sm">Hợp đồng</span>
                 </a>
                 <a href="settings.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-[#F875AA]">
                     <i data-lucide="settings" class="w-5 h-5"></i>
-                    <span class="text-sm">Settings</span>
+                    <span class="text-sm">Cài đặt tổng</span>
                 </a>
-            </nav>
+                
+           
             
             <div class="mt-10 p-4 rounded-2xl bg-gradient-to-br from-[#F875AA]/10 to-[#AEDEFC]/10 border border-[#F875AA]/20">
                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center mb-3">
                     <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
                 </div>
-                <p class="text-sm font-medium text-gray-800 mb-1">Need Help?</p>
-                <p class="text-xs text-gray-500 mb-3">Contact our support team</p>
+                <p class="text-sm font-medium text-gray-800 mb-1">Xảy ra lỗi?</p>
+                <p class="text-xs text-gray-500 mb-3">Nếu trong quá trình sử dụng gặp bất kỳ trục trặc nào, vui lòng thông báo hỗ trợ ngay.</p>
                 <a href="https://zalo.me/0835911358" target="_blank" class="w-full py-2 rounded-lg bg-[#F875AA] text-white text-xs font-medium hover:bg-[#e5649a] transition-colors inline-block text-center">
-                    Get Support
+                    Nhận hỗ trợ Zalo
                 </a>
             </div>
+             </nav>
+           
+                 <!-- User Profile -->
+         
         </aside>
 
         <!-- Main Content -->
@@ -91,8 +96,8 @@
             <!-- Header -->
             <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 animate-fade-in">
                 <div>
-                    <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800 tracking-tight">Welcome to Your HR Dashboard! 🎉</h1>
-                    <p class="text-gray-500 text-sm mt-1">Here's what's happening with your team today</p>
+                    <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800 tracking-tight">Chào mừng đến với giao diện Quản lý nhân sự Thiên Phú Mút! 🎉</h1>
+                    <p class="text-gray-500 text-sm mt-1">Đây là giao diện tổng quát công ty TPM cho bạn hôm nay.</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <button class="p-2 rounded-xl bg-white/80 border border-gray-100 hover:border-[#F875AA]/30 transition-all hover:shadow-lg">
@@ -112,10 +117,10 @@
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F875AA]/20 to-[#F875AA]/5 flex items-center justify-center">
                             <i data-lucide="users" class="w-6 h-6 text-[#F875AA]"></i>
                         </div>
-                        <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">+12%</span>
+                        <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">Belongs to Thien Phu Mut</span>
                     </div>
                     <p class="text-2xl font-semibold text-gray-800 tracking-tight">248</p>
-                    <p class="text-sm text-gray-500">Total Employees</p>
+                    <p class="text-sm text-gray-500">Tổng nhân viên hiện tại</p>
                 </div>
                 
                 <div class="card-hover bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-[#AEDEFC]/30 animate-fade-in" style="animation-delay: 0.2s">
@@ -123,10 +128,10 @@
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#AEDEFC]/30 to-[#AEDEFC]/5 flex items-center justify-center">
                             <i data-lucide="user-plus" class="w-6 h-6 text-[#7BC4F0]"></i>
                         </div>
-                        <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">+8%</span>
+                        <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">Belongs to Thien Phu Mut</span>
                     </div>
                     <p class="text-2xl font-semibold text-gray-800 tracking-tight">32</p>
-                    <p class="text-sm text-gray-500">New This Month</p>
+                    <p class="text-sm text-gray-500">Nhân viên mới trong tháng</p>
                 </div>
                 
                 <div class="card-hover bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-[#EDFFF0]/50 animate-fade-in" style="animation-delay: 0.3s">
@@ -134,10 +139,10 @@
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#EDFFF0] to-green-50 flex items-center justify-center">
                             <i data-lucide="briefcase" class="w-6 h-6 text-green-500"></i>
                         </div>
-                        <span class="text-xs font-medium text-[#F875AA] bg-[#FDEDED] px-2 py-1 rounded-full">6 depts</span>
+                        <span class="text-xs font-medium text-[#F875AA] bg-[#FDEDED] px-2 py-1 rounded-full">Belongs to Thien Phu Mut</span>
                     </div>
                     <p class="text-2xl font-semibold text-gray-800 tracking-tight">6</p>
-                    <p class="text-sm text-gray-500">Departments</p>
+                    <p class="text-sm text-gray-500">Số lượng phòng ban</p>
                 </div>
                 
             </div>
@@ -148,12 +153,12 @@
                 <div class="card-hover bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 animate-fade-in" style="animation-delay: 0.5s">
                     <div class="flex items-center justify-between mb-6">
                         <div>
-                            <h3 class="font-semibold text-gray-800 tracking-tight">New Employees</h3>
-                            <p class="text-sm text-gray-500">Last 3 months overview</p>
+                            <h3 class="font-semibold text-gray-800 tracking-tight">Biểu đồ nhân viên mới</h3>
+                            <p class="text-sm text-gray-500">Thông số trong 3 tháng gần nhất</p>
                         </div>
                         <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#EDFFF0] text-green-600 text-xs font-medium">
                             <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            +23%
+                            Belongs to Thien Phu Mut
                         </div>
                     </div>
                     <div class="h-64">
@@ -165,12 +170,12 @@
                 <div class="card-hover bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 animate-fade-in" style="animation-delay: 0.6s">
                     <div class="flex items-center justify-between mb-6">
                         <div>
-                            <h3 class="font-semibold text-gray-800 tracking-tight">Employee Distribution</h3>
-                            <p class="text-sm text-gray-500">By department</p>
+                            <h3 class="font-semibold text-gray-800 tracking-tight">Sơ đồ tổng quát công ty Thiên Phú Mút</h3>
+                            <p class="text-sm text-gray-500">Dựa trên phòng ban</p>
                         </div>
-                        <button class="p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        <!-- <button class="p-2 rounded-lg hover:bg-gray-50 transition-colors">
                             <i data-lucide="more-horizontal" class="w-5 h-5 text-gray-400"></i>
-                        </button>
+                        </button> -->
                     </div>
                     <div class="h-64 flex items-center justify-center">
                         <canvas id="departmentChart"></canvas>
@@ -182,11 +187,11 @@
             <div class="card-hover bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 animate-fade-in" style="animation-delay: 0.7s">
                 <div class="flex items-center justify-between mb-6">
                     <div>
-                        <h3 class="font-semibold text-gray-800 tracking-tight">Top 5 Employees</h3>
-                        <p class="text-sm text-gray-500">Based on performance in last 3 months</p>
+                        <h3 class="font-semibold text-gray-800 tracking-tight">Top 5 nhân viên xuất sắc nhất</h3>
+                        <p class="text-sm text-gray-500">Kết quả dựa trên hiệu suất trong 3 tháng gần nhất. (tính năng sắp ra mắt)</p>
                     </div>
                     <a href="employees.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-sm font-medium hover:shadow-lg transition-all inline-block">
-                        View All
+                        Xem tất cả
                     </a>
                 </div>
                 
@@ -212,7 +217,7 @@
                         </div>
                         <div class="text-right">
                             <p class="font-semibold text-gray-800">98%</p>
-                            <p class="text-xs text-gray-500">Performance</p>
+                            <p class="text-xs text-gray-500">Hiệu suất</p>
                         </div>
                     </div>
 
@@ -237,7 +242,7 @@
                         </div>
                         <div class="text-right">
                             <p class="font-semibold text-gray-800">95%</p>
-                            <p class="text-xs text-gray-500">Performance</p>
+                            <p class="text-xs text-gray-500">Hiệu suất</p>
                         </div>
                     </div>
 
@@ -262,7 +267,7 @@
                         </div>
                         <div class="text-right">
                             <p class="font-semibold text-gray-800">92%</p>
-                            <p class="text-xs text-gray-500">Performance</p>
+                            <p class="text-xs text-gray-500">Hiệu suất</p>
                         </div>
                     </div>
 
@@ -287,7 +292,7 @@
                         </div>
                         <div class="text-right">
                             <p class="font-semibold text-gray-800">89%</p>
-                            <p class="text-xs text-gray-500">Performance</p>
+                            <p class="text-xs text-gray-500">Hiệu suất</p>
                         </div>
                     </div>
 
@@ -311,12 +316,45 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <p class="font-semibold text-gray-800">87%</p>
-                            <p class="text-xs text-gray-500">Performance</p>
+                            <p class="font-semibold text-gray-800">86%</p>
+                            <p class="text-xs text-gray-500">Hiệu suất</p>
                         </div>
                     </div>
                 </div>
             </div>
+             <!-- Bottom Bar -->
+                <div class="border-t border-[#F875AA]/10 bg-gradient-to-r from-[#FDEDED]/30 via-white/50 to-[#EDFFF0]/30 px-8 lg:px-12 py-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <!-- Copyright -->
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                            <p class="text-sm text-gray-500">© 2025 ThienPhuMut. Bản quyền thuộc về Đoàn Nguyễn Minh Đăng - IT trực thuộc công ty TNHH Thiên Phú Mút.</p>
+                            <div class="flex items-center gap-4">
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Chính sách bảo mật</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Điều khoản dịch vụ</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Cookies</a>
+                            </div>
+                        </div>
+
+                        <!-- Social Icons -->
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="facebook" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                          
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="instagram" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="youtube" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
         </main>
     </div>
 

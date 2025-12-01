@@ -95,30 +95,52 @@
             <nav class="flex-1 p-4 space-y-1">
                 <a href="index.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Dashboard</span>
+                    <span class="text-sm font-medium">
+                        Bảng tổng quát
+                    </span>
                 </a>
                 <a href="employees.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="users" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Employees</span>
+                    <span class="text-sm font-medium">
+                        Nhân viên
+                    </span>
                 </a>
                 <a href="departments.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="building-2" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Departments</span>
+                    <span class="text-sm font-medium">
+                        Phòng ban
+                    </span>
                 </a>
                 <a href="leaveApplications.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="calendar-days" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Leave Applications</span>
+                    <span class="text-sm font-medium">
+                        Đơn nghỉ phép
+                    </span>
                 </a>
                 <a href="contracts.html" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-[#F875AA]">
                     <i data-lucide="file-text" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Contracts</span>
+                    <span class="text-sm font-medium">
+                        Hợp đồng
+                    </span>
                 </a>
                 <a href="settings.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="settings" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Settings</span>
+                    <span class="text-sm font-medium">
+                        Cài đặt
+                    </span>
                 </a>
-            </nav>
-
+          
+ <div class="mt-10 p-4 rounded-2xl bg-gradient-to-br from-[#F875AA]/10 to-[#AEDEFC]/10 border border-[#F875AA]/20">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center mb-3">
+                    <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-800 mb-1">Xảy ra lỗi?</p>
+                <p class="text-xs text-gray-500 mb-3">Nếu trong quá trình sử dụng gặp bất kỳ trục trặc nào, vui lòng thông báo hỗ trợ ngay.</p>
+                <a href="https://zalo.me/0835911358" target="_blank" class="w-full py-2 rounded-lg bg-[#F875AA] text-white text-xs font-medium hover:bg-[#e5649a] transition-colors inline-block text-center">
+                    Nhận hỗ trợ Zalo
+                </a>
+            </div>
+              </nav>
             <!-- User Profile -->
             <div class="p-4 border-t border-gray-100/50">
                 <div class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
@@ -141,12 +163,14 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Contracts 📄</h1>
-                    <p class="text-gray-500 text-sm mt-1">Manage employee contracts and agreements</p>
+                    <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Hợp đồng 📄</h1>
+                    <p class="text-gray-500 text-sm mt-1">
+                        Quản lý tất cả hợp đồng nhân viên của bạn ở một nơi.
+                    </p>
                 </div>
                 <button onclick="openModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white rounded-xl font-medium text-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
                     <i data-lucide="plus" class="w-4 h-4"></i>
-                    New Contract
+                    Thêm hợp đồng mới
                 </button>
             </div>
 
@@ -159,7 +183,9 @@
                         </div>
                         <div>
                             <p class="text-2xl font-semibold text-gray-800" data-stat="total">0</p>
-                            <p class="text-xs text-gray-500">Total Contracts</p>
+                            <p class="text-xs text-gray-500">
+                                Tổng số hợp đồng
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -170,7 +196,9 @@
                         </div>
                         <div>
                             <p class="text-2xl font-semibold text-gray-800" data-stat="active">0</p>
-                            <p class="text-xs text-gray-500">Active</p>
+                            <p class="text-xs text-gray-500">
+                                Số hợp đồng đã thông qua
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -181,7 +209,7 @@
                         </div>
                         <div>
                             <p class="text-2xl font-semibold text-gray-800" data-stat="expiring">0</p>
-                            <p class="text-xs text-gray-500">Expiring Soon</p>
+                            <p class="text-xs text-gray-500">Sắp hết hạn</p>
                         </div>
                     </div>
                 </div>
@@ -192,7 +220,9 @@
                         </div>
                         <div>
                             <p class="text-2xl font-semibold text-gray-800" data-stat="expired">0</p>
-                            <p class="text-xs text-gray-500">Expired</p>
+                            <p class="text-xs text-gray-500">
+                                Hợp đồng đã hết hạn
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -201,23 +231,27 @@
             <!-- Tabs and Filters -->
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
                 <div class="flex gap-2 p-1 bg-white/60 rounded-xl backdrop-blur-sm">
-                    <button onclick="setTab('all')" id="tab-all" class="tab-active px-4 py-2 rounded-lg text-sm font-medium transition-all">All Contracts</button>
-                    <button onclick="setTab('active')" id="tab-active" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Active</button>
-                    <button onclick="setTab('expiring')" id="tab-expiring" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Expiring Soon</button>
-                    <button onclick="setTab('expired')" id="tab-expired" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Expired</button>
+                    <button onclick="setTab('all')" id="tab-all" class="tab-active px-4 py-2 rounded-lg text-sm font-medium transition-all">Tất cả hợp đồng</button>
+                    <button onclick="setTab('active')" id="tab-active" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Hợp đồng thông qua</button>
+                    <button onclick="setTab('expiring')" id="tab-expiring" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Sắp hết hạn</button>
+                    <button onclick="setTab('expired')" id="tab-expired" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-white/50 transition-all">Đã hết hạn</button>
                 </div>
                 <div class="flex gap-3">
                     <div class="relative">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                        <input type="text" id="searchInput" placeholder="Search contracts..." class="pl-10 pr-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm w-64">
+                        <input type="text" id="searchInput" placeholder="Tìm theo tên nhân viên..." class="pl-10 pr-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm w-64">
                     </div>
                     <div class="relative">
                         <select id="typeFilter" class="px-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer pr-10">
-                            <option value="">All Types</option>
-                            <option value="permanent">Permanent</option>
-                            <option value="fixed-term">Fixed-Term</option>
+                            <option value="">
+                                Tất cả loại hợp đồng
+                            </option>
+                            <option value="permanent">
+                                Hợp đồng vĩnh viễn
+                            </option>
+                            <option value="fixed-term">Thời hạn cố định</option>
                             <option value="freelance">Freelance</option>
-                            <option value="internship">Internship</option>
+                            <option value="internship">Thực tập sinh</option>
                         </select>
                         <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                     </div>
@@ -228,12 +262,12 @@
             <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden fade-up stagger-5">
                 <!-- Header -->
                 <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                    <div class="col-span-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Employee</div>
-                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Contract</div>
-                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Duration</div>
-                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Salary</div>
-                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Status</div>
-                    <div class="col-span-1 text-xs font-medium text-gray-500 uppercase tracking-wide text-right">Actions</div>
+                    <div class="col-span-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Nhân viên</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Hợp đồng</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Thời hạn</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Lương khởi điểm</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Tình trạng</div>
+                    <div class="col-span-1 text-xs font-medium text-gray-500 uppercase tracking-wide text-right">Hành động</div>
                 </div>
 
                 <!-- Table Body -->
@@ -244,6 +278,39 @@
 
             <!-- Modal Container -->
             <div id="modalContainer"></div>
+               <!-- Bottom Bar -->
+                <div class="border-t border-[#F875AA]/10 bg-gradient-to-r from-[#FDEDED]/30 via-white/50 to-[#EDFFF0]/30 px-8 lg:px-12 py-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <!-- Copyright -->
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                            <p class="text-sm text-gray-500">© 2025 ThienPhuMut. Bản quyền thuộc về Đoàn Nguyễn Minh Đăng - IT trực thuộc công ty TNHH Thiên Phú Mút.</p>
+                            <div class="flex items-center gap-4">
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Chính sách bảo mật</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Điều khoản dịch vụ</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Cookies</a>
+                            </div>
+                        </div>
+
+                        <!-- Social Icons -->
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="facebook" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                          
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="instagram" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="youtube" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
         </main>
     </div>
 

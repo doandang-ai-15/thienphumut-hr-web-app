@@ -149,7 +149,7 @@ function renderDepartments(departments) {
                         <i data-lucide="${icon}" class="w-6 h-6 ${color.text}"></i>
                     </div>
                     <span class="px-3 py-1 bg-gradient-to-r ${color.bg} text-xs font-semibold rounded-full ${color.text}">
-                        ${employeeCount} members
+                        ${employeeCount} thành viên
                     </span>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">${dept.name}</h3>
@@ -159,7 +159,7 @@ function renderDepartments(departments) {
                         ${managerAvatarHTML}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs text-gray-400">Department Head</p>
+                        <p class="text-xs text-gray-400">Trưởng phòng ban</p>
                         <p class="text-sm font-medium text-gray-700 truncate">${managerName}</p>
                     </div>
                 </div>
@@ -247,7 +247,7 @@ function showDepartmentDetailModal(department) {
 
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-sm text-gray-500">Department Head</p>
+                            <p class="text-sm text-gray-500">Trưởng phòng ban</p>
                             <button onclick="toggleEditManager()" id="editManagerBtn" class="text-xs text-[#F875AA] hover:text-[#F875AA]/80 font-medium">
                                 Edit
                             </button>

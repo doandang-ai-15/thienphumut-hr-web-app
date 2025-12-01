@@ -116,30 +116,52 @@
             <nav class="flex-1 p-4 space-y-1">
                 <a href="index.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Dashboard</span>
+                    <span class="text-sm font-medium">
+                        Bảng tổng quát
+                    </span>
                 </a>
                 <a href="employees.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="users" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Employees</span>
+                    <span class="text-sm font-medium">
+                        Nhân viên
+                    </span>
                 </a>
                 <a href="departments.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="building-2" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Departments</span>
+                    <span class="text-sm font-medium">
+                        Phòng ban
+                    </span>
                 </a>
                 <a href="leaveApplications.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="calendar-days" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Leave Applications</span>
+                    <span class="text-sm font-medium">
+                        Đơn nghỉ phép
+                    </span>
                 </a>
                 <a href="contracts.html" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-[#FDEDED]/50">
                     <i data-lucide="file-text" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Contracts</span>
+                    <span class="text-sm font-medium">
+                        Hợp đồng
+                    </span>
                 </a>
                 <a href="settings.html" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-[#F875AA]">
                     <i data-lucide="settings" class="w-5 h-5"></i>
-                    <span class="text-sm font-medium">Settings</span>
+                    <span class="text-sm font-medium">
+                        Cài đặt
+                    </span>
                 </a>
-            </nav>
-
+           
+ <div class="mt-10 p-4 rounded-2xl bg-gradient-to-br from-[#F875AA]/10 to-[#AEDEFC]/10 border border-[#F875AA]/20">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center mb-3">
+                    <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-800 mb-1">Xảy ra lỗi?</p>
+                <p class="text-xs text-gray-500 mb-3">Nếu trong quá trình sử dụng gặp bất kỳ trục trặc nào, vui lòng thông báo hỗ trợ ngay.</p>
+                <a href="https://zalo.me/0835911358" target="_blank" class="w-full py-2 rounded-lg bg-[#F875AA] text-white text-xs font-medium hover:bg-[#e5649a] transition-colors inline-block text-center">
+                    Nhận hỗ trợ Zalo
+                </a>
+            </div>
+             </nav>
             <!-- User Profile -->
             <div class="p-4 border-t border-gray-100/50">
                 <div class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
@@ -161,8 +183,10 @@
         <main class="flex-1 ml-64 p-8">
             <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Settings ⚙️</h1>
-                <p class="text-gray-500 text-sm mt-1">Manage your account and application preferences</p>
+                <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Cài đặt ⚙️</h1>
+                <p class="text-gray-500 text-sm mt-1">
+                    Quản lý thông tin cá nhân và cài đặt công ty của bạn.
+                </p>
             </div>
 
             <!-- Settings Layout -->
@@ -173,15 +197,21 @@
                         <nav class="p-2">
                             <button onclick="showSection('profile')" id="nav-profile" class="settings-nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left">
                                 <i data-lucide="user" class="w-4 h-4"></i>
-                                <span class="text-sm font-medium">Profile</span>
+                                <span class="text-sm font-medium">
+                                    Thông tin cá nhân
+                                </span>
                             </button>
                             <button onclick="showSection('company')" id="nav-company" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
                                 <i data-lucide="building" class="w-4 h-4"></i>
-                                <span class="text-sm font-medium">Company</span>
+                                <span class="text-sm font-medium">
+                                    Thông tin công ty
+                                </span>
                             </button>
                             <button onclick="showSection('security')" id="nav-security" class="settings-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 text-left hover:bg-gray-50">
                                 <i data-lucide="shield" class="w-4 h-4"></i>
-                                <span class="text-sm font-medium">Security</span>
+                                <span class="text-sm font-medium">
+                                    Bảo mật & Đăng nhập
+                                </span>
                             </button>
                         </nav>
                     </div>
@@ -193,7 +223,9 @@
                     <div id="section-profile" class="space-y-6 fade-up stagger-2">
                         <!-- Profile Card -->
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Profile Information</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Thông tin cá nhân
+                            </h2>
                             
                             <div class="flex items-start gap-6 mb-6">
                                 <div class="relative">
@@ -210,10 +242,10 @@
                                     <p id="profileRole" class="text-sm text-gray-500">Employee</p>
                                     <div class="mt-2 flex gap-2">
                                         <button type="button" onclick="document.getElementById('avatarUpload').click()" class="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white hover:shadow-md transition-all">
-                                            Upload Photo
+                                            Đổi avatar
                                         </button>
                                         <button type="button" id="removeAvatarBtn" onclick="removeAvatar()" class="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors">
-                                            Remove
+                                            Xoá avatar
                                         </button>
                                     </div>
                                 </div>
@@ -222,54 +254,68 @@
                             <form id="profileForm">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">First Name</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Họ và tên đệm
+                                        </label>
                                         <input type="text" name="first_name" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Last Name</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Tên
+                                        </label>
                                         <input type="text" name="last_name" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Email Address</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Email
+                                        </label>
                                         <input type="email" name="email" readonly class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 focus:border-[#F875AA] focus:outline-none text-sm">
-                                        <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            Email không thể thay đổi.
+                                        </p>
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Phone Number</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Số điện thoại
+                                        </label>
                                         <input type="tel" name="phone" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Date of Birth</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Ngày sinh
+                                        </label>
                                         <input type="date" name="date_of_birth" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Address</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                            Địa chỉ
+                                        </label>
                                         <input type="text" name="address" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">City</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Đường</label>
                                         <input type="text" name="city" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">State/Province</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Phường</label>
                                         <input type="text" name="state" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Zip Code</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Thành phố</label>
                                         <input type="text" name="zip_code" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                     <div>
-                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Country</label>
+                                        <label class="text-sm font-medium text-gray-700 mb-2 block">Quốc tịch</label>
                                         <input type="text" name="country" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                     </div>
                                 </div>
 
                                 <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
                                     <button type="button" class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
-                                        Cancel
+                                        Huỷ
                                     </button>
                                     <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
-                                        Save Changes
+                                        Lưu thông tin
                                     </button>
                                 </div>
                             </form>
@@ -277,7 +323,9 @@
 
                         <!-- Preferences -->
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Preferences</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Cài đặt hệ thống
+                            </h2>
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
@@ -292,8 +340,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Timezone</p>
-                                        <p class="text-xs text-gray-500">Your local timezone</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Múi giờ
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Múi giờ hiển thị cho tất cả người dùng
+                                        </p>
                                     </div>
                                     <div class="px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-600">
                                         UTC+07:00 (Bangkok, Hanoi, Jakarta)
@@ -306,7 +358,7 @@
                                         <p class="text-xs text-gray-500">Định dạng hiển thị ngày tháng</p>
                                     </div>
                                     <div class="px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-600">
-                                        DD/MM/YYYY
+                                        Tháng/Ngày/Năm (MM/DD/YYYY)
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +368,9 @@
                     <!-- Company Section -->
                     <div id="section-company" class="space-y-6 hidden">
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Company Information</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Thông tin công ty
+                            </h2>
                             
                             <div class="flex items-start gap-6 mb-6">
                                 <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center shadow-lg">
@@ -324,27 +378,35 @@
                                 </div>
                                 <div class="flex-1">
                                     <h3 class="text-lg font-semibold text-gray-800">Thiên Phú Mút</h3>
-                                    <p class="text-sm text-gray-500">HR Management Solutions</p>
+                                    <p class="text-sm text-gray-500">
+                                        Quản lý thông tin công ty của bạn như tên, ngành nghề, địa chỉ và website.
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Company Name</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Tên công ty
+                                    </label>
                                     <input type="text" value="Thiên Phú Mút" readonly class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 focus:border-[#F875AA] focus:outline-none text-sm">
                                 </div>
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Industry</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Mảng công ty
+                                    </label>
                                     <input type="text" id="companyIndustry" value="Technology" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                 </div>
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Company Size</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Quy mô công ty
+                                    </label>
                                     <div class="relative">
                                         <select id="companySize" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
-                                            <option>1-50 employees</option>
-                                            <option>51-200 employees</option>
-                                            <option>201-500 employees</option>
-                                            <option>501+ employees</option>
+                                            <option>1-50 nhân viên</option>
+                                            <option>51-200 nhân viên</option>
+                                            <option>201-500 nhân viên</option>
+                                            <option>501+ nhân viên</option>
                                         </select>
                                         <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                                     </div>
@@ -354,7 +416,9 @@
                                     <input type="url" id="companyWebsite" value="https://peoplehub.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Address</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Địa chỉ công ty
+                                    </label>
                                     <input type="text" id="companyAddress" value="123 Business Ave, Suite 100, San Francisco, CA 94105" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
                                 </div>
                             </div>
@@ -362,7 +426,7 @@
                             <!-- Save Button -->
                             <div class="mt-6">
                                 <button type="button" id="saveCompanyBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
-                                    Save Changes
+                                    Lưu thay đổi
                                 </button>
                             </div>
                         </div>
@@ -371,13 +435,19 @@
                     <!-- Company Section -->
                     <div id="section-notifications" class="space-y-6 hidden">
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Email Notifications</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Thông báo Email
+                            </h2>
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">New Leave Requests</p>
-                                        <p class="text-xs text-gray-500">Get notified when employees submit leave requests</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Đơn xin nghỉ phép mới
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Thông báo khi có đơn xin nghỉ phép mới
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -386,8 +456,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Contract Expiring</p>
-                                        <p class="text-xs text-gray-500">Reminders for upcoming contract expirations</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Hợp đồng sắp hết hạn
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Cảnh báo khi hợp đồng nhân viên sắp hết hạn
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -396,8 +470,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">New Employee Added</p>
-                                        <p class="text-xs text-gray-500">Notification when new employees are onboarded</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Nhân viên mới được onboard
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Thông báo khi có nhân viên mới gia nhập công ty
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -406,8 +484,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Weekly Summary</p>
-                                        <p class="text-xs text-gray-500">Receive weekly HR activity summary</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Báo cáo hoạt động HR hàng tuần
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Nhận báo cáo tổng quan về hoạt động HR hàng tuần
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -416,8 +498,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Birthday Reminders</p>
-                                        <p class="text-xs text-gray-500">Get reminded of upcoming employee birthdays</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Nhắc sinh nhật nhân viên
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Nhận nhắc nhở về sinh nhật nhân viên trong tháng
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -427,13 +513,19 @@
                         </div>
 
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Push Notifications</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Thông báo Ứng dụng
+                            </h2>
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Desktop Notifications</p>
-                                        <p class="text-xs text-gray-500">Show notifications in your browser</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Thông báo trình duyệt
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Nhận thông báo qua trình duyệt khi có cập nhật mới
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch active w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -442,8 +534,12 @@
 
                                 <div class="flex items-center justify-between p-4 rounded-xl bg-gray-50/50">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-800">Mobile Notifications</p>
-                                        <p class="text-xs text-gray-500">Receive push notifications on mobile</p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            Thông báo di động
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Nhận thông báo qua ứng dụng di động khi có cập nhật mới
+                                        </p>
                                     </div>
                                     <button onclick="toggleSwitch(this)" class="toggle-switch w-12 h-7 rounded-full bg-gray-200 relative cursor-pointer">
                                         <span class="toggle-dot absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm"></span>
@@ -456,45 +552,88 @@
                     <!-- Security Section -->
                     <div id="section-security" class="space-y-6 hidden">
                         <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-6">
-                            <h2 class="text-base font-semibold text-gray-800 mb-6">Change Password</h2>
+                            <h2 class="text-base font-semibold text-gray-800 mb-6">
+                                Đổi mật khẩu
+                            </h2>
 
                             <form id="passwordForm" class="space-y-4 max-w-md">
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Current Password</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Mật khẩu hiện tại
+                                    </label>
                                     <div class="relative">
-                                        <input type="password" id="currentPassword" name="current_password" required placeholder="Enter current password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <input type="password" id="currentPassword" name="current_password" required placeholder="Nhập mật khẩu hiện tại" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
                                         <button type="button" onclick="togglePasswordVisibility('currentPassword')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                             <i data-lucide="eye" class="w-4 h-4"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">New Password</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Mật khẩu mới
+                                    </label>
                                     <div class="relative">
-                                        <input type="password" id="newPassword" name="new_password" required placeholder="Enter new password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <input type="password" id="newPassword" name="new_password" required placeholder="Nhập mật khẩu mới" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
                                         <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                             <i data-lucide="eye" class="w-4 h-4"></i>
                                         </button>
                                     </div>
-                                    <p class="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số.
+                                    </p>
                                 </div>
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700 mb-2 block">Confirm New Password</label>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">
+                                        Xác nhận mật khẩu mới
+                                    </label>
                                     <div class="relative">
-                                        <input type="password" id="confirmPassword" name="confirm_password" required placeholder="Confirm new password" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
+                                        <input type="password" id="confirmPassword" name="confirm_password" required placeholder="Nhập lại mật khẩu mới một lần nữa" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm pr-12">
                                         <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                             <i data-lucide="eye" class="w-4 h-4"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
-                                    Update Password
+                                    Cập nhật mật khẩu
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+               <!-- Bottom Bar -->
+                <div class="border-t border-[#F875AA]/10 bg-gradient-to-r from-[#FDEDED]/30 via-white/50 to-[#EDFFF0]/30 px-8 lg:px-12 py-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <!-- Copyright -->
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                            <p class="text-sm text-gray-500">© 2025 ThienPhuMut. Bản quyền thuộc về Đoàn Nguyễn Minh Đăng - IT trực thuộc công ty TNHH Thiên Phú Mút.</p>
+                            <div class="flex items-center gap-4">
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Chính sách bảo mật</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Điều khoản dịch vụ</a>
+                                <span class="text-gray-300">•</span>
+                                <a href="#" class="text-xs text-gray-400 hover:text-[#F875AA] transition-colors">Cookies</a>
+                            </div>
+                        </div>
+
+                        <!-- Social Icons -->
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="facebook" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                          
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="instagram" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-xl bg-white/80 border border-gray-100 flex items-center justify-center hover:border-[#F875AA]/30 hover:bg-gradient-to-br hover:from-[#F875AA]/10 hover:to-[#AEDEFC]/10 hover:shadow-lg">
+                                <i data-lucide="youtube" class="w-4 h-4 text-gray-500"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
         </main>
     </div>
 

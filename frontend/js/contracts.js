@@ -259,7 +259,7 @@ function showContractDetailModal(contract) {
             <div class="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-[#FDEDED]/50 to-[#EDFFF0]/50">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-semibold text-gray-800">Contract Details</h2>
+                        <h2 class="text-2xl font-semibold text-gray-800">Chi tiết hợp đồng</h2>
                         <p class="text-sm text-gray-500 mt-1">${contract.contract_number || 'No Contract Number'}</p>
                     </div>
                     <button onclick="closeContractDetailModal()" class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
@@ -271,7 +271,7 @@ function showContractDetailModal(contract) {
             <div class="px-8 py-6 overflow-y-auto max-h-[calc(90vh-180px)] space-y-6">
                 <!-- Employee Info -->
                 <div>
-                    <p class="text-sm text-gray-500 mb-2">Employee</p>
+                    <p class="text-sm text-gray-500 mb-2">Nhân viên</p>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
                             ${contract.employee_photo
@@ -289,29 +289,29 @@ function showContractDetailModal(contract) {
                 <!-- Contract Details -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Contract Type</p>
+                        <p class="text-sm text-gray-500 mb-1">Chi tiết hợp đồng</p>
                         <p class="font-medium text-gray-800">${typeDisplay[contract.contract_type] || contract.contract_type}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Status</p>
+                        <p class="text-sm text-gray-500 mb-1">Tình trạng</p>
                         <span class="inline-block px-3 py-1 rounded-full ${color.bg} ${color.text} text-sm font-medium capitalize">
                             ${contract.status}
                         </span>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Start Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Ngày bắt đầu</p>
                         <p class="font-medium text-gray-800">${startDate}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">End Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Ngày kết thúc</p>
                         <p class="font-medium text-gray-800">${endDate}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Salary</p>
+                        <p class="text-sm text-gray-500 mb-1">Lương khởi điểm</p>
                         <p class="font-medium text-gray-800">$${contract.salary ? Number(contract.salary).toLocaleString() : 'N/A'}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Signed Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Ngày ký hợp đồng</p>
                         <p class="font-medium text-gray-800">${signedDate}</p>
                     </div>
                 </div>
@@ -319,7 +319,7 @@ function showContractDetailModal(contract) {
                 <!-- Terms -->
                 ${contract.terms ? `
                     <div>
-                        <p class="text-sm text-gray-500 mb-2">Terms & Conditions</p>
+                        <p class="text-sm text-gray-500 mb-2">Điều khoản & điều kiện</p>
                         <p class="text-gray-800 p-3 bg-gray-50 rounded-xl text-sm whitespace-pre-wrap">${contract.terms}</p>
                     </div>
                 ` : ''}
@@ -327,7 +327,7 @@ function showContractDetailModal(contract) {
 
             <div class="px-8 py-5 border-t border-gray-100 bg-gray-50 flex gap-3">
                 <button onclick="closeContractDetailModal()" class="flex-1 py-3 bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white rounded-xl font-medium hover:shadow-lg transition-all">
-                    Close
+                    Đóng
                 </button>
             </div>
         </div>
@@ -347,7 +347,7 @@ function closeContractDetailModal() {
 
 // Edit contract (placeholder)
 function editContract(id) {
-    showError('Edit functionality coming soon!');
+    showError('Chức năng điều chỉnh hợp đồng đang trong quá trình phát triển, sẽ xong sớm!');
 }
 
 // Open Add Contract Modal

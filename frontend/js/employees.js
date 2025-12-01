@@ -167,7 +167,7 @@ function showEmployeeDetailModal(employee) {
             <div class="px-8 py-6 overflow-y-auto max-h-[calc(90vh-180px)]">
                 <div class="grid grid-cols-2 gap-6">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Employee ID</p>
+                        <p class="text-sm text-gray-500 mb-1">Mã nhân viên</p>
                         <p class="font-medium text-gray-800">${employee.employee_id}</p>
                     </div>
                     <div>
@@ -175,27 +175,27 @@ function showEmployeeDetailModal(employee) {
                         <p class="font-medium text-gray-800">${employee.email}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Phone</p>
+                        <p class="text-sm text-gray-500 mb-1">Số điện thoại</p>
                         <p class="font-medium text-gray-800">${employee.phone || 'N/A'}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Department</p>
+                        <p class="text-sm text-gray-500 mb-1">Phòng ban</p>
                         <p class="font-medium text-gray-800">${employee.department_name || 'N/A'}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Employment Type</p>
+                        <p class="text-sm text-gray-500 mb-1">Làm việc theo diện</p>
                         <p class="font-medium text-gray-800 capitalize">${employee.employment_type}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Start Date</p>
+                        <p class="text-sm text-gray-500 mb-1">Bắt đầu làm việc</p>
                         <p class="font-medium text-gray-800">${new Date(employee.start_date).toLocaleDateString()}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Status</p>
+                        <p class="text-sm text-gray-500 mb-1">Tình trạng (active = còn làm việc)</p>
                         <p class="font-medium text-gray-800 capitalize">${employee.status}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Performance</p>
+                        <p class="text-sm text-gray-500 mb-1">Hiệu suất</p>
                         <p class="font-medium text-gray-800">${employee.performance_score}%</p>
                     </div>
                 </div>
@@ -222,7 +222,7 @@ function showEmployeeDetailModal(employee) {
 
             <div class="px-8 py-5 border-t border-gray-100 bg-gray-50">
                 <button onclick="closeEmployeeDetailModal()" class="w-full py-3 bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white rounded-xl font-medium hover:shadow-lg transition-all">
-                    Close
+                    Đóng cửa sổ
                 </button>
             </div>
         </div>
