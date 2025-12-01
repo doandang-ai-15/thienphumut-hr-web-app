@@ -12,7 +12,18 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production'
+        ? [
+            'https://thienphumut.vn',
+            'https://www.thienphumut.vn',
+            'https://your-project.vercel.app'  // Thay bằng URL Vercel của bạn
+          ]
+        : '*',  // Allow all in development
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -47,6 +58,7 @@ app.use('/api/employees', require('./src/routes/employeeRoutes'));
 app.use('/api/departments', require('./src/routes/departmentRoutes'));
 app.use('/api/leaves', require('./src/routes/leaveRoutes'));
 app.use('/api/contracts', require('./src/routes/contractRoutes'));
+app.use('/api/seed', require('./src/routes/seedRoutes')); // Seed endpoint
 
 // Error handler (must be last)
 app.use(errorHandler);
