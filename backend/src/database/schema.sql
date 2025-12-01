@@ -50,7 +50,7 @@ CREATE TABLE employees (
     state VARCHAR(100),
     zip_code VARCHAR(20),
     country VARCHAR(100) DEFAULT 'United States',
-    photo VARCHAR(255),
+    photo TEXT,
     status VARCHAR(20) DEFAULT 'active',
     performance_score NUMERIC(5, 2) DEFAULT 0,
     role VARCHAR(20) DEFAULT 'employee',
