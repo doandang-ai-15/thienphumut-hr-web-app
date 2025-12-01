@@ -5,6 +5,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <!-- API Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/navigation.js"></script>
+    <script src="/js/translations.js"></script>
+    <script src="/js/dateFormat.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         
@@ -153,7 +160,7 @@
                             <i data-lucide="file-check" class="w-5 h-5 text-[#5BA3C8]"></i>
                         </div>
                         <div>
-                            <p class="text-2xl font-semibold text-gray-800">156</p>
+                            <p class="text-2xl font-semibold text-gray-800" data-stat="total">0</p>
                             <p class="text-xs text-gray-500">Total Contracts</p>
                         </div>
                     </div>
@@ -164,7 +171,7 @@
                             <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
                         </div>
                         <div>
-                            <p class="text-2xl font-semibold text-gray-800">142</p>
+                            <p class="text-2xl font-semibold text-gray-800" data-stat="active">0</p>
                             <p class="text-xs text-gray-500">Active</p>
                         </div>
                     </div>
@@ -175,7 +182,7 @@
                             <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-500"></i>
                         </div>
                         <div>
-                            <p class="text-2xl font-semibold text-gray-800">8</p>
+                            <p class="text-2xl font-semibold text-gray-800" data-stat="expiring">0</p>
                             <p class="text-xs text-gray-500">Expiring Soon</p>
                         </div>
                     </div>
@@ -186,7 +193,7 @@
                             <i data-lucide="archive" class="w-5 h-5 text-gray-500"></i>
                         </div>
                         <div>
-                            <p class="text-2xl font-semibold text-gray-800">6</p>
+                            <p class="text-2xl font-semibold text-gray-800" data-stat="expired">0</p>
                             <p class="text-xs text-gray-500">Expired</p>
                         </div>
                     </div>
@@ -204,565 +211,47 @@
                 <div class="flex gap-3">
                     <div class="relative">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                        <input type="text" placeholder="Search contracts..." class="pl-10 pr-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm w-64">
+                        <input type="text" id="searchInput" placeholder="Search contracts..." class="pl-10 pr-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm w-64">
                     </div>
                     <div class="relative">
-                        <select class="px-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer pr-10">
-                            <option>All Types</option>
-                            <option>Full-Time</option>
-                            <option>Part-Time</option>
-                            <option>Contractor</option>
-                            <option>Intern</option>
+                        <select id="typeFilter" class="px-4 py-2.5 rounded-xl border-2 border-white/50 bg-white/60 backdrop-blur-sm focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer pr-10">
+                            <option value="">All Types</option>
+                            <option value="permanent">Permanent</option>
+                            <option value="fixed-term">Fixed-Term</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="internship">Internship</option>
                         </select>
                         <i data-lucide="chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- Contracts Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-8 fade-up stagger-5">
-                <!-- Contract Card 1 - Active -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-5 card-hover">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold text-sm">AS</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">Alice Smith</p>
-                                <p class="text-xs text-gray-500">Senior Engineer</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                            Active
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="text-xs font-medium text-gray-700">Full-Time</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Jan 15, 2023</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-gray-700">Jan 14, 2026</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Annual Salary</span>
-                            <span class="text-xs font-medium text-gray-700">$95,000</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-gray-700">65%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-full" style="width: 65%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#AEDEFC]/20 text-[#5BA3C8] text-xs font-medium hover:bg-[#AEDEFC]/30 transition-colors">
-                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                            Download
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
+            <!-- Contracts Table -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden fade-up stagger-5">
+                <!-- Header -->
+                <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                    <div class="col-span-3 text-xs font-medium text-gray-500 uppercase tracking-wide">Employee</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Contract</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Duration</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Salary</div>
+                    <div class="col-span-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Status</div>
+                    <div class="col-span-1 text-xs font-medium text-gray-500 uppercase tracking-wide text-right">Actions</div>
                 </div>
 
-                <!-- Contract Card 2 - Expiring Soon -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-orange-200/50 p-5 card-hover">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#9ED5A3] flex items-center justify-center text-white font-semibold text-sm">MK</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">Michael Kim</p>
-                                <p class="text-xs text-gray-500">UI Designer</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                            Expiring
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="text-xs font-medium text-gray-700">Full-Time</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Jan 1, 2023</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-orange-600">Jan 31, 2025</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Annual Salary</span>
-                            <span class="text-xs font-medium text-gray-700">$78,000</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-orange-600">95%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full" style="width: 95%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-orange-50 text-orange-600 text-xs font-medium hover:bg-orange-100 transition-colors">
-                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                            Renew
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contract Card 3 - Active -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-5 card-hover">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#AEDEFC] flex items-center justify-center text-white font-semibold text-sm">BJ</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">Bob Johnson</p>
-                                <p class="text-xs text-gray-500">Marketing Manager</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                            Active
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="text-xs font-medium text-gray-700">Full-Time</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Mar 1, 2024</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-gray-700">Feb 28, 2027</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Annual Salary</span>
-                            <span class="text-xs font-medium text-gray-700">$85,000</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-gray-700">28%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-full" style="width: 28%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#AEDEFC]/20 text-[#5BA3C8] text-xs font-medium hover:bg-[#AEDEFC]/30 transition-colors">
-                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                            Download
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contract Card 4 - Contractor -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-5 card-hover">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#F875AA] flex items-center justify-center text-white font-semibold text-sm">CW</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">Carol White</p>
-                                <p class="text-xs text-gray-500">Sales Lead</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                            Active
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="inline-flex px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-xs font-medium">Contractor</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Jun 1, 2024</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-gray-700">May 31, 2025</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Hourly Rate</span>
-                            <span class="text-xs font-medium text-gray-700">$75/hr</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-gray-700">55%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-full" style="width: 55%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#AEDEFC]/20 text-[#5BA3C8] text-xs font-medium hover:bg-[#AEDEFC]/30 transition-colors">
-                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                            Download
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contract Card 5 - Expired -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-5 card-hover opacity-75">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-gray-300 flex items-center justify-center text-white font-semibold text-sm">DM</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">David Martinez</p>
-                                <p class="text-xs text-gray-500">Former Developer</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                            Expired
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="text-xs font-medium text-gray-700">Full-Time</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Jan 1, 2022</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-gray-500">Dec 31, 2024</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Annual Salary</span>
-                            <span class="text-xs font-medium text-gray-700">$88,000</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-gray-500">100%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gray-300 rounded-full" style="width: 100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-500 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="archive" class="w-3.5 h-3.5"></i>
-                            Archive
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contract Card 6 - Part-Time -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 p-5 card-hover">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#AEDEFC] to-[#9ED5A3] flex items-center justify-center text-white font-semibold text-sm">EL</div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">Emily Lee</p>
-                                <p class="text-xs text-gray-500">Finance Analyst</p>
-                            </div>
-                        </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                            Active
-                        </span>
-                    </div>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Contract Type</span>
-                            <span class="inline-flex px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-xs font-medium">Part-Time</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Start Date</span>
-                            <span class="text-xs font-medium text-gray-700">Sep 1, 2024</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">End Date</span>
-                            <span class="text-xs font-medium text-gray-700">Aug 31, 2025</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500">Hours/Week</span>
-                            <span class="text-xs font-medium text-gray-700">20 hrs</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs text-gray-500">Contract Progress</span>
-                            <span class="text-xs font-medium text-gray-700">30%</span>
-                        </div>
-                        <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] rounded-full" style="width: 30%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-50 text-gray-600 text-xs font-medium hover:bg-gray-100 transition-colors">
-                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                            View
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#AEDEFC]/20 text-[#5BA3C8] text-xs font-medium hover:bg-[#AEDEFC]/30 transition-colors">
-                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                            Download
-                        </button>
-                        <button class="flex items-center justify-center px-3 py-2 rounded-lg bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors">
-                            <i data-lucide="more-horizontal" class="w-4 h-4"></i>
-                        </button>
-                    </div>
+                <!-- Table Body -->
+                <div id="contractsTableBody">
+                    <!-- Contracts will be rendered dynamically by contracts.js -->
                 </div>
             </div>
 
-            <!-- Pagination -->
-            <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">Showing 1 to 6 of 156 contracts</p>
-                <div class="flex gap-2">
-                    <button class="p-2 rounded-lg border-2 border-gray-100 bg-white/60 text-gray-400 hover:border-[#F875AA] hover:text-[#F875AA] transition-all">
-                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                    </button>
-                    <button class="w-9 h-9 rounded-lg bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white text-sm font-medium">1</button>
-                    <button class="w-9 h-9 rounded-lg border-2 border-gray-100 bg-white/60 text-gray-600 hover:border-[#F875AA] text-sm font-medium transition-all">2</button>
-                    <button class="w-9 h-9 rounded-lg border-2 border-gray-100 bg-white/60 text-gray-600 hover:border-[#F875AA] text-sm font-medium transition-all">3</button>
-                    <span class="w-9 h-9 flex items-center justify-center text-gray-400 text-sm">...</span>
-                    <button class="w-9 h-9 rounded-lg border-2 border-gray-100 bg-white/60 text-gray-600 hover:border-[#F875AA] text-sm font-medium transition-all">26</button>
-                    <button class="p-2 rounded-lg border-2 border-gray-100 bg-white/60 text-gray-600 hover:border-[#F875AA] hover:text-[#F875AA] transition-all">
-                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- Modal Container -->
+            <div id="modalContainer"></div>
         </main>
-    </div>
-
-    <!-- New Contract Modal -->
-    <div id="addModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-lg font-semibold text-gray-800 tracking-tight">New Contract</h2>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Employee</label>
-                    <div class="relative">
-                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
-                            <option>Select employee</option>
-                            <option>Alice Smith - Engineering</option>
-                            <option>Bob Johnson - Marketing</option>
-                            <option>Carol White - Sales</option>
-                            <option>New Hire (will be created)</option>
-                        </select>
-                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Contract Type</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="contractType" class="peer sr-only" checked="">
-                            <div class="p-3 rounded-xl border-2 border-gray-100 peer-checked:border-[#F875AA] peer-checked:bg-[#FDEDED]/50 transition-all text-center">
-                                <span class="text-sm font-medium text-gray-700">Full-Time</span>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="contractType" class="peer sr-only">
-                            <div class="p-3 rounded-xl border-2 border-gray-100 peer-checked:border-[#F875AA] peer-checked:bg-[#FDEDED]/50 transition-all text-center">
-                                <span class="text-sm font-medium text-gray-700">Part-Time</span>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="contractType" class="peer sr-only">
-                            <div class="p-3 rounded-xl border-2 border-gray-100 peer-checked:border-[#F875AA] peer-checked:bg-[#FDEDED]/50 transition-all text-center">
-                                <span class="text-sm font-medium text-gray-700">Contractor</span>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="contractType" class="peer sr-only">
-                            <div class="p-3 rounded-xl border-2 border-gray-100 peer-checked:border-[#F875AA] peer-checked:bg-[#FDEDED]/50 transition-all text-center">
-                                <span class="text-sm font-medium text-gray-700">Intern</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Job Title</label>
-                    <input type="text" placeholder="e.g., Senior Software Engineer" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-sm font-medium text-gray-700 mb-2 block">Start Date</label>
-                        <input type="date" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
-                    </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-700 mb-2 block">End Date</label>
-                        <input type="date" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-sm font-medium text-gray-700 mb-2 block">Salary / Rate</label>
-                        <div class="relative">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
-                            <input type="text" placeholder="95,000" class="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-700 mb-2 block">Pay Period</label>
-                        <div class="relative">
-                            <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
-                                <option>Annual</option>
-                                <option>Monthly</option>
-                                <option>Hourly</option>
-                            </select>
-                            <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Department</label>
-                    <div class="relative">
-                        <select class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm appearance-none cursor-pointer">
-                            <option>Select department</option>
-                            <option>Engineering</option>
-                            <option>Design</option>
-                            <option>Marketing</option>
-                            <option>Sales</option>
-                            <option>Finance</option>
-                            <option>HR</option>
-                        </select>
-                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Upload Contract Document</label>
-                    <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-[#F875AA] transition-colors cursor-pointer">
-                        <i data-lucide="upload-cloud" class="w-8 h-8 text-gray-400 mx-auto mb-2"></i>
-                        <p class="text-sm text-gray-600">Click to upload or drag and drop</p>
-                        <p class="text-xs text-gray-400 mt-1">PDF, DOC up to 10MB</p>
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="text-sm font-medium text-gray-700 mb-2 block">Notes</label>
-                    <textarea placeholder="Additional contract notes..." rows="2" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white focus:border-[#F875AA] focus:outline-none text-sm transition-all resize-none"></textarea>
-                </div>
-            </div>
-            
-            <div class="flex gap-3 mt-6">
-                <button onclick="closeModal()" class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
-                    Cancel
-                </button>
-                <button class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#F875AA] to-[#AEDEFC] text-white font-medium text-sm hover:shadow-lg transition-all">
-                    Create Contract
-                </button>
-            </div>
-        </div>
     </div>
 
     <script>
         lucide.createIcons();
-        
-        function openModal() {
-            document.getElementById('addModal').classList.remove('hidden');
-            document.getElementById('addModal').classList.add('flex');
-            lucide.createIcons();
-        }
-        
-        function closeModal() {
-            document.getElementById('addModal').classList.add('hidden');
-            document.getElementById('addModal').classList.remove('flex');
-        }
-        
-        function setTab(tab) {
-            const tabs = ['all', 'active', 'expiring', 'expired'];
-            tabs.forEach(t => {
-                const tabEl = document.getElementById('tab-' + t);
-                if (t === tab) {
-                    tabEl.classList.add('tab-active');
-                    tabEl.classList.remove('text-gray-600');
-                } else {
-                    tabEl.classList.remove('tab-active');
-                    tabEl.classList.add('text-gray-600');
-                }
-            });
-        }
     </script>
+    <script src="/js/contracts.js"></script>
 
 </body></html>

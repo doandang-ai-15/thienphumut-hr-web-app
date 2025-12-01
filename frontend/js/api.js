@@ -226,6 +226,10 @@ class APIService {
         return this.post(API_ENDPOINTS.LEAVES, leaveData);
     }
 
+    async updateLeave(id, leaveData) {
+        return this.put(API_ENDPOINTS.LEAVE_DETAIL(id), leaveData);
+    }
+
     async updateLeaveStatus(id, status) {
         return this.put(API_ENDPOINTS.LEAVE_DETAIL(id), { status });
     }
