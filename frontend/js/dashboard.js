@@ -17,18 +17,37 @@ async function loadDashboard() {
         // Update user info in header
         updateUserInfo(user);
 
-        // Load dashboard stats
+        // Load employees and departments to calculate stats (like departments page)
+        const [employeesResponse, departmentsResponse] = await Promise.all([
+            api.getEmployees(),
+            api.getDepartments()
+        ]);
+
+        // Calculate stats directly from data
+        calculateAndUpdateStats(employeesResponse.data, departmentsResponse.data);
+
+        // Load dashboard stats for charts and top performers
         const statsResponse = await api.getDashboardStats();
         const dashboardData = statsResponse.data;
 
-        // Update stats cards
-        updateStatsCards(dashboardData.stats);
+        console.log('📊 Dashboard Stats Response:', dashboardData);
+        console.log('🏆 Top Employees Data:', dashboardData.topEmployees);
+
+        // Log each employee's photo status
+        dashboardData.topEmployees.forEach((emp, index) => {
+            console.log(`👤 Employee ${index + 1}: ${emp.first_name} ${emp.last_name}`);
+            console.log(`   📷 Photo field exists: ${emp.photo ? 'YES' : 'NO'}`);
+            if (emp.photo) {
+                console.log(`   📷 Photo length: ${emp.photo.length} characters`);
+                console.log(`   📷 Photo preview: ${emp.photo.substring(0, 50)}...`);
+            }
+        });
 
         // Update charts
         updateNewEmployeesChart(dashboardData.newEmployeesByMonth);
         updateDepartmentChart(dashboardData.departmentDistribution);
 
-        // Update top performers
+        // Update top performers with avatars
         updateTopPerformers(dashboardData.topEmployees);
 
         hideLoading();
@@ -54,13 +73,89 @@ function updateUserInfo(user) {
     }
 }
 
+// Calculate stats from raw data (same approach as departments page)
+function calculateAndUpdateStats(employees, departments) {
+    console.log('📊 Calculating stats from data...');
+    console.log('👥 Employees:', employees.length);
+    console.log('🏢 Departments:', departments.length);
+
+    // Total Employees - count all employees with status 'active'
+    const totalEmployees = employees.filter(emp => emp.status === 'active').length;
+
+    // Total Departments
+    const totalDepartments = departments.length;
+
+    // New This Month - filter employees created in current month (UTC+7)
+    const newThisMonth = calculateNewThisMonth(employees);
+
+    console.log('✅ Calculated stats:', {
+        totalEmployees,
+        totalDepartments,
+        newThisMonth
+    });
+
+    // Update stats cards
+    updateStatsCards({
+        total_employees: totalEmployees,
+        total_departments: totalDepartments,
+        new_this_month: newThisMonth
+    });
+}
+
+// Calculate employees created in current month (UTC+7 timezone)
+function calculateNewThisMonth(employees) {
+    // Get current date in UTC+7
+    const now = new Date();
+    const utcPlus7Offset = 7 * 60; // 7 hours in minutes
+    const localOffset = now.getTimezoneOffset(); // Get local timezone offset
+    const offsetDiff = utcPlus7Offset + localOffset; // Calculate difference
+
+    const nowInUTC7 = new Date(now.getTime() + offsetDiff * 60 * 1000);
+    const currentYear = nowInUTC7.getFullYear();
+    const currentMonth = nowInUTC7.getMonth(); // 0-indexed (0 = January)
+
+    console.log('📅 Current date (UTC+7):', nowInUTC7.toISOString());
+    console.log('📅 Current year:', currentYear, 'Current month:', currentMonth + 1);
+
+    const newEmployees = employees.filter(emp => {
+        if (!emp.created_at) return false;
+
+        // Parse created_at date
+        const createdDate = new Date(emp.created_at);
+
+        // Convert to UTC+7
+        const createdInUTC7 = new Date(createdDate.getTime() + offsetDiff * 60 * 1000);
+
+        const empYear = createdInUTC7.getFullYear();
+        const empMonth = createdInUTC7.getMonth();
+
+        const isMatch = empYear === currentYear && empMonth === currentMonth;
+
+        if (isMatch) {
+            console.log('✨ New employee this month:', emp.first_name, emp.last_name, '- Created:', createdInUTC7.toISOString());
+        }
+
+        return isMatch;
+    });
+
+    console.log('✅ Total new employees this month:', newEmployees.length);
+    return newEmployees.length;
+}
+
 // Update stats cards
 function updateStatsCards(stats) {
-    console.log('📊 Dashboard Stats:', stats);
+    console.log('📊 Updating Dashboard Stats Cards:', stats);
 
-    // Get all stat elements
-    const statElements = document.querySelectorAll('.text-2xl.font-semibold.text-gray-800');
-    console.log('📈 Found stat elements:', statElements.length);
+    // Get stat cards container (grid with stats cards only, not the header)
+    const statsGrid = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
+    if (!statsGrid) {
+        console.error('❌ Stats grid not found!');
+        return;
+    }
+
+    // Get stat elements inside the stats cards only
+    const statElements = statsGrid.querySelectorAll('.text-2xl.font-semibold.text-gray-800');
+    console.log('📈 Found stat elements in stats grid:', statElements.length);
 
     // Total Employees (first card)
     if (statElements[0]) {
@@ -198,8 +293,13 @@ function updateDepartmentChart(data) {
 
 // Update top performers list
 function updateTopPerformers(employees) {
+    console.log('🎯 updateTopPerformers called with employees:', employees);
+
     const container = document.querySelector('.space-y-4');
-    if (!container) return;
+    if (!container) {
+        console.error('❌ Top performers container not found!');
+        return;
+    }
 
     container.innerHTML = '';
 
@@ -223,16 +323,37 @@ function updateTopPerformers(employees) {
         const initials = `${emp.first_name[0]}${emp.last_name[0]}`;
         const score = emp.performance_score || 0;
 
-        const html = `
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r ${bgColors[index]} to-transparent hover:from-[#F875AA]/10 transition-all group">
-                <div class="rank-badge w-10 h-10 rounded-full bg-gradient-to-br ${rankColors[index]} flex items-center justify-center text-white font-bold shadow-lg">
-                    ${index + 1}
+        console.log(`🏆 Rendering employee ${index + 1}: ${emp.first_name} ${emp.last_name}`);
+        console.log(`   📷 Has photo: ${emp.photo ? 'YES' : 'NO'}`);
+
+        // Build avatar HTML - use photo if available, otherwise show initials
+        let avatarHTML;
+        if (emp.photo) {
+            console.log(`   ✅ Using photo for ${emp.first_name}`);
+            avatarHTML = `
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] p-0.5">
+                    <img src="${emp.photo}" alt="${emp.first_name} ${emp.last_name}"
+                         class="w-full h-full rounded-full object-cover bg-white"
+                         onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full rounded-full bg-white flex items-center justify-center\\'><span class=\\'text-sm font-medium text-gray-600\\'>${initials}</span></div>';">
                 </div>
+            `;
+        } else {
+            console.log(`   ℹ️ Using initials for ${emp.first_name} (no photo)`);
+            avatarHTML = `
                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] p-0.5">
                     <div class="w-full h-full rounded-full bg-white flex items-center justify-center">
                         <span class="text-sm font-medium text-gray-600">${initials}</span>
                     </div>
                 </div>
+            `;
+        }
+
+        const html = `
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r ${bgColors[index]} to-transparent hover:from-[#F875AA]/10 transition-all group">
+                <div class="rank-badge w-10 h-10 rounded-full bg-gradient-to-br ${rankColors[index]} flex items-center justify-center text-white font-bold shadow-lg">
+                    ${index + 1}
+                </div>
+                ${avatarHTML}
                 <div class="flex-1">
                     <p class="font-medium text-gray-800">${emp.first_name} ${emp.last_name}</p>
                     <p class="text-sm text-gray-500">${emp.job_title}</p>

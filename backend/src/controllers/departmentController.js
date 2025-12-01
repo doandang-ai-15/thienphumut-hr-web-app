@@ -11,11 +11,12 @@ exports.getDepartments = asyncHandler(async (req, res) => {
             e.first_name as manager_first_name,
             e.last_name as manager_last_name,
             e.email as manager_email,
+            e.photo as manager_photo,
             COUNT(emp.id) as actual_employee_count
         FROM departments d
         LEFT JOIN employees e ON d.manager_id = e.id
         LEFT JOIN employees emp ON d.id = emp.department_id AND emp.status = 'active'
-        GROUP BY d.id, e.first_name, e.last_name, e.email
+        GROUP BY d.id, e.first_name, e.last_name, e.email, e.photo
         ORDER BY d.name
     `);
 
@@ -37,7 +38,8 @@ exports.getDepartment = asyncHandler(async (req, res) => {
             d.*,
             e.first_name as manager_first_name,
             e.last_name as manager_last_name,
-            e.email as manager_email
+            e.email as manager_email,
+            e.photo as manager_photo
         FROM departments d
         LEFT JOIN employees e ON d.manager_id = e.id
         WHERE d.id = $1
@@ -54,7 +56,7 @@ exports.getDepartment = asyncHandler(async (req, res) => {
     const employeesResult = await pool.query(`
         SELECT
             id, employee_id, first_name, last_name, email, job_title,
-            employment_type, status, performance_score
+            employment_type, status, performance_score, photo
         FROM employees
         WHERE department_id = $1
         ORDER BY created_at DESC

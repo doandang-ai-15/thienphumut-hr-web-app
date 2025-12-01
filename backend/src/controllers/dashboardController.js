@@ -40,6 +40,7 @@ exports.getDashboardStats = asyncHandler(async (req, res) => {
             e.last_name,
             e.job_title,
             e.performance_score,
+            e.photo,
             d.name as department
         FROM employees e
         LEFT JOIN departments d ON e.department_id = d.id

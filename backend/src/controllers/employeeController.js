@@ -171,6 +171,7 @@ exports.createEmployee = asyncHandler(async (req, res) => {
         state,
         zip_code,
         country,
+        photo,
         role = 'employee'
     } = req.body;
 
@@ -207,14 +208,14 @@ exports.createEmployee = asyncHandler(async (req, res) => {
             employee_id, first_name, last_name, email, password, phone,
             date_of_birth, gender, job_title, department_id, reports_to,
             employment_type, start_date, salary, pay_frequency,
-            address, city, state, zip_code, country, role, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, 'active')
+            address, city, state, zip_code, country, photo, role, status
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, 'active')
         RETURNING *`,
         [
             newEmployeeId, first_name, last_name, email, hashedPassword, phone,
             date_of_birth, gender, job_title, department_id, reports_to,
             employment_type, start_date, salary, pay_frequency,
-            address, city, state, zip_code, country, role
+            address, city, state, zip_code, country, photo, role
         ]
     );
 

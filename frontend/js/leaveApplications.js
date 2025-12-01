@@ -102,12 +102,20 @@ function renderLeaves(leaves) {
             ? `${leave.first_name[0]}${leave.last_name[0]}`
             : '??';
 
+        // Build avatar - use photo if exists, otherwise show initials
+        let avatarHTML;
+        if (leave.employee_photo) {
+            avatarHTML = `<img src="${leave.employee_photo}" alt="${employeeName}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-white text-sm font-semibold\\'>${employeeInitials}</div>';">`;
+        } else {
+            avatarHTML = `<div class="w-full h-full flex items-center justify-center text-white text-sm font-semibold">${employeeInitials}</div>`;
+        }
+
         return `
             <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-50 hover:bg-[#FDEDED]/30 transition-colors items-center">
                 <!-- Employee -->
                 <div class="col-span-3 flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white text-sm font-semibold">
-                        ${employeeInitials}
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
+                        ${avatarHTML}
                     </div>
                     <div>
                         <p class="font-medium text-gray-800 text-sm">${employeeName}</p>
@@ -236,8 +244,11 @@ function showLeaveDetailModal(leave) {
                 <div>
                     <p class="text-sm text-gray-500 mb-2">Employee</p>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold">
-                            ${employeeInitials}
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
+                            ${leave.employee_photo
+                                ? `<img src="${leave.employee_photo}" alt="${employeeName}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-white font-semibold\\'>${employeeInitials}</div>';">`
+                                : `<div class="w-full h-full flex items-center justify-center text-white font-semibold">${employeeInitials}</div>`
+                            }
                         </div>
                         <div>
                             <p class="font-medium text-gray-800">${employeeName}</p>

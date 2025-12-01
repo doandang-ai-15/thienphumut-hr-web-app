@@ -77,13 +77,19 @@ function renderEmployees(employees) {
         ];
         const gradient = gradients[index % gradients.length];
 
+        // Build avatar HTML - use photo if exists, otherwise show initials (like settings page)
+        let avatarContent;
+        if (emp.photo) {
+            avatarContent = `<img src="${emp.photo}" alt="${emp.first_name} ${emp.last_name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full rounded-full bg-[#FDEDED] flex items-center justify-center text-2xl font-semibold text-[#F875AA]\\'>${initials}</div>';">`;
+        } else {
+            avatarContent = `<div class="w-full h-full rounded-full bg-[#FDEDED] flex items-center justify-center text-2xl font-semibold text-[#F875AA]">${initials}</div>`;
+        }
+
         return `
             <a href="#" onclick="viewEmployeeDetail(${emp.id}); return false;"
                class="employee-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-center cursor-pointer transition-all duration-300 fade-up stagger-${(index % 6) + 1}">
-                <div class="avatar-ring w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${gradient} p-0.5 transition-all duration-300">
-                    <div class="w-full h-full rounded-full bg-[#FDEDED] flex items-center justify-center text-2xl font-semibold text-[#F875AA]">
-                        ${initials}
-                    </div>
+                <div class="avatar-ring w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${gradient} p-0.5 transition-all duration-300 overflow-hidden">
+                    ${avatarContent}
                 </div>
                 <h3 class="mt-4 text-sm font-semibold text-gray-800">${emp.first_name} ${emp.last_name}</h3>
                 <p class="text-xs text-gray-500 mt-1">${emp.department_name || 'No Department'}</p>
@@ -333,6 +339,12 @@ async function handleAddEmployee(event) {
     const form = event.target;
     const formData = new FormData(form);
 
+    console.log('📤 Form submission - uploadedPhoto status:', uploadedPhoto ? 'HAS PHOTO' : 'NO PHOTO');
+    if (uploadedPhoto) {
+        console.log('📷 Photo length:', uploadedPhoto.length);
+        console.log('📷 Photo preview (first 100 chars):', uploadedPhoto.substring(0, 100));
+    }
+
     const employeeData = {
         first_name: formData.get('first_name'),
         last_name: formData.get('last_name'),
@@ -353,6 +365,11 @@ async function handleAddEmployee(event) {
         country: formData.get('country'),
         photo: uploadedPhoto // Include uploaded photo
     };
+
+    console.log('📋 Employee data to be sent:', {
+        ...employeeData,
+        photo: employeeData.photo ? `[BASE64 DATA - ${employeeData.photo.length} chars]` : null
+    });
 
     try {
         showLoading();
@@ -415,17 +432,31 @@ function handlePhotoUpload(file) {
         uploadedPhoto = e.target.result;
         console.log('✅ Photo converted to base64, length:', uploadedPhoto.length);
 
-        // Update UI to show preview
-        const photoUpload = document.querySelector('.photo-upload');
-        if (photoUpload) {
+        // Update UI to show preview - use the correct ID from modal
+        const previewAvatar = document.getElementById('previewAvatar');
+        const previewIcon = document.getElementById('previewIcon');
+
+        if (previewAvatar) {
             console.log('✅ Updating photo preview UI');
-            photoUpload.innerHTML = `<img src="${uploadedPhoto}" alt="Preview" class="w-full h-full object-cover rounded-full">`;
+
+            // Hide the camera icon
+            if (previewIcon) {
+                previewIcon.style.display = 'none';
+            }
+
+            // Update the preview container to show the image
+            previewAvatar.style.borderStyle = 'solid';
+            previewAvatar.style.padding = '0';
+            previewAvatar.innerHTML = `<img src="${uploadedPhoto}" alt="Preview" class="w-full h-full object-cover rounded-full">`;
+
+            console.log('✅ Photo preview updated successfully!');
         } else {
-            console.error('❌ .photo-upload element not found!');
+            console.error('❌ #previewAvatar element not found!');
         }
     };
     reader.onerror = function(error) {
         console.error('❌ FileReader error:', error);
+        showError('Failed to read image file');
     };
     reader.readAsDataURL(file);
 }

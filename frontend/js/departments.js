@@ -133,6 +133,14 @@ function renderDepartments(departments) {
             ? `${dept.manager_first_name[0]}${dept.manager_last_name[0]}`
             : 'NA';
 
+        // Build manager avatar HTML
+        let managerAvatarHTML;
+        if (dept.manager_photo) {
+            managerAvatarHTML = `<img src="${dept.manager_photo}" alt="${managerName}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-white text-xs font-semibold\\'>${managerInitials}</div>';">`;
+        } else {
+            managerAvatarHTML = `<div class="w-full h-full flex items-center justify-center text-white text-xs font-semibold">${managerInitials}</div>`;
+        }
+
         return `
             <div onclick="viewDepartmentDetail(${dept.id})"
                  class="department-card bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 cursor-pointer transition-all duration-300 fade-up stagger-${(index % 6) + 1}">
@@ -147,8 +155,8 @@ function renderDepartments(departments) {
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">${dept.name}</h3>
                 <p class="text-sm text-gray-500 mb-4 line-clamp-2">${dept.description || 'No description'}</p>
                 <div class="flex items-center gap-2 pt-4 border-t border-gray-100">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white text-xs font-semibold">
-                        ${managerInitials}
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
+                        ${managerAvatarHTML}
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-xs text-gray-400">Department Head</p>
@@ -177,6 +185,20 @@ async function viewDepartmentDetail(id) {
 
 // Show department detail modal
 function showDepartmentDetailModal(department) {
+    console.log('🏢 showDepartmentDetailModal called with department:', department);
+    console.log('👥 Department employees:', department.employees);
+
+    // Log each employee's photo status
+    if (department.employees && department.employees.length > 0) {
+        department.employees.forEach((emp, index) => {
+            console.log(`👤 Employee ${index + 1}: ${emp.first_name} ${emp.last_name}`);
+            console.log(`   📷 Photo field exists: ${emp.photo ? 'YES' : 'NO'}`);
+            if (emp.photo) {
+                console.log(`   📷 Photo length: ${emp.photo.length} characters`);
+            }
+        });
+    }
+
     const modal = document.createElement('div');
     modal.id = 'departmentDetailModal';
     modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
@@ -234,8 +256,11 @@ function showDepartmentDetailModal(department) {
                         <!-- Display Mode -->
                         <div id="managerDisplay" class="${managerName ? '' : 'hidden'}">
                             <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] flex items-center justify-center text-white font-semibold">
-                                    ${managerInitials}
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#F875AA] to-[#AEDEFC] overflow-hidden">
+                                    ${department.manager_photo
+                                        ? `<img src="${department.manager_photo}" alt="${managerName}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-white font-semibold\\'>${managerInitials}</div>';">`
+                                        : `<div class="w-full h-full flex items-center justify-center text-white font-semibold">${managerInitials}</div>`
+                                    }
                                 </div>
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800">${managerName || 'No Manager'}</p>
@@ -273,17 +298,34 @@ function showDepartmentDetailModal(department) {
                         <div>
                             <p class="text-sm text-gray-500 mb-3">Team Members (${department.employees.length})</p>
                             <div class="grid grid-cols-2 gap-3">
-                                ${department.employees.slice(0, 8).map(emp => `
-                                    <div class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#AEDEFC] to-[#EDFFF0] flex items-center justify-center text-xs font-semibold">
-                                            ${emp.first_name[0]}${emp.last_name[0]}
+                                ${department.employees.slice(0, 8).map((emp, index) => {
+                                    const initials = `${emp.first_name[0]}${emp.last_name[0]}`;
+
+                                    console.log(`🎨 Rendering team member ${index + 1}: ${emp.first_name} ${emp.last_name}`);
+                                    console.log(`   📷 Has photo: ${emp.photo ? 'YES' : 'NO'}`);
+
+                                    // Build avatar - use photo if exists, otherwise show initials
+                                    let avatarHTML;
+                                    if (emp.photo) {
+                                        console.log(`   ✅ Using photo for ${emp.first_name}`);
+                                        avatarHTML = `<img src="${emp.photo}" alt="${emp.first_name} ${emp.last_name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-xs font-semibold\\'>${initials}</div>';">`;
+                                    } else {
+                                        console.log(`   ℹ️ Using initials for ${emp.first_name} (no photo)`);
+                                        avatarHTML = `<div class="w-full h-full flex items-center justify-center text-xs font-semibold">${initials}</div>`;
+                                    }
+
+                                    return `
+                                        <div class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">
+                                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#AEDEFC] to-[#EDFFF0] overflow-hidden">
+                                                ${avatarHTML}
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-800 truncate">${emp.first_name} ${emp.last_name}</p>
+                                                <p class="text-xs text-gray-500 truncate">${emp.job_title || 'Employee'}</p>
+                                            </div>
                                         </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-800 truncate">${emp.first_name} ${emp.last_name}</p>
-                                            <p class="text-xs text-gray-500 truncate">${emp.job_title || 'Employee'}</p>
-                                        </div>
-                                    </div>
-                                `).join('')}
+                                    `;
+                                }).join('')}
                             </div>
                             ${department.employees.length > 8 ? `
                                 <p class="text-sm text-gray-500 mt-2 text-center">+${department.employees.length - 8} more employees</p>
