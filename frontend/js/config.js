@@ -3,7 +3,7 @@ const API_CONFIG = {
     // Tự động phát hiện môi trường
     BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/api'  // Development
-        : 'https://thienphumut-hr-web-app-production.up.railway.app/api',  // Production
+        : '/api',  // Production - Same domain (Vercel)
     TIMEOUT: 30000,
 };
 
