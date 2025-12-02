@@ -1,8 +1,9 @@
 {
   "version": 2,
+  "buildCommand": "npm install",
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/api/(.*)",
       "destination": "/api"
     }
   ],
@@ -12,22 +13,8 @@
       "dest": "/api"
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|html))",
-      "dest": "/frontend/$1"
-    },
-    {
-      "src": "/",
-      "dest": "/frontend/index.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/frontend/$1.html"
+      "dest": "/frontend/$1"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
