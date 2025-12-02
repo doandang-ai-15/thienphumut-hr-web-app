@@ -63,14 +63,19 @@ app.use('/api/seed', require('./src/routes/seedRoutes')); // Seed endpoint
 // Error handler (must be last)
 app.use(errorHandler);
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+// Export app for Vercel serverless
+module.exports = app;
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-    console.log('❌ Unhandled Rejection:', err.message);
-    process.exit(1);
-});
+// Start server only if not in serverless environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    });
+
+    // Handle unhandled promise rejections
+    process.on('unhandledRejection', (err) => {
+        console.log('❌ Unhandled Rejection:', err.message);
+        process.exit(1);
+    });
+}
