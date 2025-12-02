@@ -1,11 +1,5 @@
 {
-  "version": 2,
-  "buildCommand": "npm install",
-  "outputDirectory": "frontend",
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api"
-    }
+    { "source": "/api/(.*)", "destination": "/api" }
   ]
 }
