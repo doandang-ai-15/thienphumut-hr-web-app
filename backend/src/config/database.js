@@ -24,22 +24,16 @@ const pool = new Pool(
           }
 );
 
-// Test connection
+// Test connection (disabled for serverless)
 const testConnection = async () => {
-    try {
-        const client = await pool.connect();
-        console.log('✅ PostgreSQL Database connected successfully');
-        client.release();
-    } catch (error) {
-        console.error('❌ Database connection failed:', error.message);
-        process.exit(1);
-    }
+    // Serverless functions don't run at startup
+    // Connection will be tested on first query
+    return true;
 };
 
-// Handle pool errors
-pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
-    process.exit(-1);
-});
+// Handle pool errors (disabled for serverless - no persistent connections)
+// pool.on('error', (err) => {
+//     console.error('Unexpected error on idle client', err);
+// });
 
 module.exports = { pool, testConnection };
