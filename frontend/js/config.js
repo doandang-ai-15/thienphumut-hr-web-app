@@ -3,7 +3,7 @@ const API_CONFIG = {
     // Tự động phát hiện môi trường
     BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/api'  // Development
-        : 'https://YOUR-BACKEND-URL.railway.app/api',  // Production - THAY ĐỔI URL NÀY
+        : 'thienphumut-hr-web-app-production.up.railway.app',  // Production - THAY ĐỔI URL NÀY
     TIMEOUT: 30000,
 };
 
