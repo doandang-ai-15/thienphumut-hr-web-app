@@ -58,7 +58,7 @@ app.use('/api/employees', require('./src/routes/employeeRoutes'));
 app.use('/api/departments', require('./src/routes/departmentRoutes'));
 app.use('/api/leaves', require('./src/routes/leaveRoutes'));
 app.use('/api/contracts', require('./src/routes/contractRoutes'));
-// app.use('/api/seed', require('./src/routes/seedRoutes')); // DISABLED - Seed completed
+app.use('/api/seed', require('./src/routes/seedRoutes')); // Seed endpoint
 
 // Error handler (must be last)
 app.use(errorHandler);
